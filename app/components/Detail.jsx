@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X, Check, ChevronRight } from "lucide-react";
 import Status from "./Status";
-import { post } from "../api";
+import { post, openDocument } from "../api";
 export default function Detail({
   delivery: d,
   state,
@@ -62,9 +62,18 @@ export default function Detail({
         {d.note && <div className="notice">{d.note}</div>}
         {d.document && (
           <p>
-            <a href={"/uploads/" + d.document} target="_blank" rel="noreferrer">
+            <button
+              className="text-button"
+              onClick={async () => {
+                try {
+                  await openDocument(d.document);
+                } catch (e) {
+                  setError(e.message);
+                }
+              }}
+            >
               Origineel document bekijken ↗
-            </a>{" "}
+            </button>{" "}
             · {d.confirmed ? "Menselijk bevestigd" : "Bevestiging vereist"}
           </p>
         )}

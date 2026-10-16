@@ -16,7 +16,7 @@ import {
   Check,
   ArrowUpRight,
 } from "lucide-react";
-import { api, post } from "./api";
+import { api, post, isBrowserDemo, resetBrowserDemo } from "./api";
 import { labels } from "./constants";
 import DeliveryForm from "./components/DeliveryForm";
 import Detail from "./components/Detail";
@@ -43,7 +43,8 @@ export default function App() {
     try {
       setState(await api("/state"));
     } catch (e) {
-      if (!state) setState(null);
+      if (e.status === 401) setState(null);
+      else if (isBrowserDemo) setError(e.message);
     }
   }
   useEffect(() => {
@@ -82,9 +83,25 @@ export default function App() {
           ))}
         </div>
         <small>
-          Portfolio-demo · fictieve bedrijfsgegevens · lokale demosessies
+          Portfolio-demo · fictieve bedrijfsgegevens ·{" "}
+          {isBrowserDemo
+            ? "browseropslag op dit toestel"
+            : "lokale demosessies"}
         </small>
+        {isBrowserDemo && (
+          <p className="demo-intro">
+            Deze publieke oefenomgeving werkt zonder Microsoft-login. Je
+            handelingen blijven op dit toestel. OCR is echt; ERP-overdracht is
+            gesimuleerd.{" "}
+            <a href={import.meta.env.BASE_URL + "case/"}>
+              Bekijk de case en video ↗
+            </a>
+          </p>
+        )}
         {error && <p role="alert">{error}</p>}
+        {isBrowserDemo && (
+          <button onClick={resetBrowserDemo}>Nieuwe oefensessie</button>
+        )}
       </main>
     );
   const rows = state.deliveries.filter(
@@ -121,7 +138,8 @@ export default function App() {
         </nav>
         <div className="sidebar-bottom">
           <div className="local-dot" />
-          Lokale portfolio-demo<small>Fictieve West-Vlaamse bouwgroep</small>
+          {isBrowserDemo ? "Publieke browserdemo" : "Lokale portfolio-demo"}
+          <small>Fictieve West-Vlaamse bouwgroep</small>
           <label htmlFor="role">Demonstratierol</label>
           <select
             id="role"
@@ -157,6 +175,18 @@ export default function App() {
             {state.user.name}
           </div>
         </div>
+        {isBrowserDemo && (
+          <div className="demo-banner">
+            <span>
+              <strong>Browserdemo</strong> · oefendata op dit toestel · geen
+              Microsoft-verbinding · ERP gesimuleerd
+            </span>
+            <div>
+              <a href={import.meta.env.BASE_URL + "case/"}>Case & video ↗</a>
+              <button onClick={resetBrowserDemo}>Nieuwe oefensessie</button>
+            </div>
+          </div>
+        )}
         <div className="content">
           <header className="page-header">
             <div>
@@ -198,10 +228,11 @@ export default function App() {
               <div className="notice">
                 <ScanLine />
                 <p>
-                  Op macOS gebruikt deze demo Apple Vision. Met
-                  Azure-configuratie gebruikt ze Document Intelligence.
-                  Tekstbestanden gebruiken uitsluitend een parser. Geen
-                  AI-uitkomst gaat automatisch naar het ERP.
+                  {isBrowserDemo
+                    ? "Deze browserdemo leest foto's met Tesseract.js op je toestel. Er wordt geen bon naar een server verzonden. ERP-overdracht is gesimuleerd."
+                    : "Op macOS gebruikt deze demo Apple Vision. Met Azure-configuratie gebruikt ze Document Intelligence."}{" "}
+                  Tekstbestanden gebruiken uitsluitend een parser. Elke
+                  OCR-uitkomst vereist menselijke bevestiging.
                 </p>
               </div>
               <DeliveryTable
@@ -241,7 +272,9 @@ export default function App() {
                       <small>
                         {t === "Ter controle"
                           ? "Wacht op menselijke beoordeling"
-                          : "Binnen je toegangsrechten"}
+                          : isBrowserDemo
+                            ? "Binnen de gekozen demonstratierol"
+                            : "Binnen je toegangsrechten"}
                       </small>
                     </div>
                   ))}

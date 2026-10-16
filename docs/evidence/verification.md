@@ -12,3 +12,5 @@ Datum: 16 oktober 2026. Lokale macOS-omgeving, Node 24.21, PAC 2.13.1. Geen eind
 - Ontwerpconcept en werkelijke desktopweergave visueel geïnspecteerd; verschillen en keuzes in ../design-verification.md.
 
 Bewijsbestanden zijn echte uitvoer van demo/tests. Screenshots tonen fictieve data; video toont de lokale webdemo, niet de native Microsoft-runtime.
+
+Publieke Pages-uitvoering toegevoegd: twee aanvullende Chromium-proeven verifiëren echte Tesseract.js-OCR, verplichte menselijke bevestiging, originele foto uit IndexedDB, onafhankelijke demonstratierol, gesimuleerde ERP-storing/drie pogingen/herstel, ontvangst en behoud na reload. Tijdens die geteste route zijn geen HTTP-verzoeken naar andere origins waargenomen. Dit is afzonderlijk bewijs van de browserdemo, niet van native Microsoft-componenten.

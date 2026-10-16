@@ -1,16 +1,16 @@
-import { useState } from "react";
 import { Workflow } from "lucide-react";
-import { post } from "../api";
+import { post, isBrowserDemo } from "../api";
 export default function Automation({ state, refresh, setError }) {
-  const [failing, setFailing] = useState(false);
+  const failing = state.failing ?? false;
   return (
     <>
       <div className="section-title">
         <div>
           <h2>Van registratie tot ERP</h2>
           <p>
-            Drie uitvoerbare lokale workflows. Microsoft cloud flows:
-            afzonderlijke deployment.
+            {isBrowserDemo
+              ? "Interactieve processimulatie in je browser. Er worden geen Microsoft cloud flows of externe ERP-aanroepen uitgevoerd."
+              : "Drie uitvoerbare lokale workflows. Microsoft cloud flows: afzonderlijke deployment."}
           </p>
         </div>
       </div>
@@ -49,8 +49,8 @@ export default function Automation({ state, refresh, setError }) {
             <button
               onClick={async () => {
                 try {
-                  const r = await post("/admin/erp", { failing: !failing });
-                  setFailing(r.failing);
+                  await post("/admin/erp", { failing: !failing });
+                  await refresh();
                 } catch (e) {
                   setError(e.message);
                 }
@@ -60,7 +60,9 @@ export default function Automation({ state, refresh, setError }) {
             </button>
           </div>
           <p>
-            Goedkeuren tijdens een storing demonstreert retry en foutmeldingen.
+            Goedkeuren tijdens een storing demonstreert retry en foutmeldingen.{" "}
+            {isBrowserDemo &&
+              "Houd deze tab open: browsertaken lopen bij het vernieuwen van de gegevens."}
           </p>
           <div className="table-scroll">
             <table>

@@ -85,7 +85,7 @@ const server = http.createServer(async (req, res) => {
     }
     const user = session ? ops.user(session.userId) : null;
     if (path === "/api/state" && req.method === "GET")
-      return json(res, 200, ops.summary(user));
+      return json(res, 200, { ...ops.summary(user), failing });
     if (path === "/api/deliveries" && req.method === "POST")
       return json(res, 201, ops.create(user, JSON.parse(await body(req))));
     const action = path.match(

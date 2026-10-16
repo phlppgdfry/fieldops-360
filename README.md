@@ -6,7 +6,13 @@ Onafhankelijke portfolio-case voor een fictieve West-Vlaamse bouw- en transportg
 
 ![FieldOps 360 dashboard](docs/evidence/dashboard-desktop.png)
 
-**Status:** de lokale webdemo is uitvoerbaar en getest. Er is een verpakte mobiele Canvas-collectieapp (`.msapp`), maar Studio-validatie en Dataverse-binding staan open. De native Dataverse/Power Automate-installatie wacht op Microsoft-omgevingsrechten. Dit is dus nog geen volledig gedeployde Power Platform-oplossing. [Exacte status en bewijs](docs/delivery-status.md).
+**Online demo:** [Open FieldOps 360](https://phlppgdfry.github.io/fieldops-360/) · [Case en video](https://phlppgdfry.github.io/fieldops-360/case/).
+
+**Status:** de publieke GitHub Pages-demo werkt volledig in de browser met echte Tesseract.js-OCR en lokale oefenopslag; ERP-overdracht is expliciet gesimuleerd. De aparte Node-demo gebruikt een echte lokale ERP-test-API. De native Microsoft-installatie is nog niet afgerond: Dataverse weigert tabelcreatie met `prvCreateEntity`; Studio-binding, echte cloud-flowruns en solution-export blijven open. [Exacte status en bewijs](docs/delivery-status.md).
+
+## Online proberen
+
+Open de [publieke demo](https://phlppgdfry.github.io/fieldops-360/), kies Chauffeur, download de fictieve oefenbon via het formulier en upload deze. De OCR-worker leest de bon op je toestel. Controleer de velden, motiveer 18/24 ton, bevestig als mens en dien in. Wissel naar Werfleider om onafhankelijk goed te keuren. Beheerder → Automatisering demonstreert storing, retries en herstel. Er is geen Microsoft-login nodig; er worden geen bonfoto's voor OCR verstuurd. Elke bezoeker heeft een eigen dataset. [Hosting en grenzen](docs/github-pages.md) · [Hoe de OCR-workers werken](docs/ocr-workers.md).
 
 ## Zelf draaien
 

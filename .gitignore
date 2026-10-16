@@ -13,3 +13,8 @@ docs/evidence/recording/
 artifacts/
 power-platform/solution/obj/
 power-platform/solution/bin/
+
+dist-pages/
+
+.scratch-*
+.firecrawl/

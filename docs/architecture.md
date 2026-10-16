@@ -13,6 +13,9 @@ flowchart LR
   E --> R[Unieke ERP-ontvangst]
 ```
 
+## Publieke browseruitvoering
+GitHub Pages levert statische bestanden. Dezelfde React-interface gebruikt daar een aparte browseradapter met LocalStorage voor oefendossiers en IndexedDB voor bonfoto's. Gedeelde registratie-/beslisregels staan in shared/rules.mjs; de parser in shared/document-fields.mjs. Tesseract.js voert echte OCR in een webworker uit. ERP, retries en meldingen zijn expliciete processimulaties; er wordt geen Node-server, Dataverse-sessie of Power Automate-flow in GitHub Pages gehost. Dit is geen productieautorisatie. Zie [GitHub Pages](github-pages.md).
+
 ## Doelarchitectuur Power Platform
 Canvas App → Dataverse fo_delivery/fo_document → cloud flow validatie/approval → duurzame fo_integrationjob → ERP REST API → status en audit. Foutflow monitort definitief mislukte taken en maakt beheerwerk aan. AI Builder of Azure Document Intelligence leest bonnen; mens bevestigt iedere output vóór goedkeuring. De webdemo demonstreert dezelfde bedrijfsroute maar is geen Power Apps-runtime.
 

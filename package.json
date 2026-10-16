@@ -15,12 +15,16 @@
     "test:ui": "playwright test",
     "verify": "npm test && npm run build",
     "erp": "node server/erp.mjs",
-    "check:artifacts": "python3 scripts/validate-artifacts.py"
+    "check:artifacts": "python3 scripts/validate-artifacts.py",
+    "build:pages": "node scripts/build-pages.mjs",
+    "preview:pages": "node scripts/serve-pages.mjs",
+    "test:pages": "playwright test --config playwright.pages.config.mjs"
   },
   "dependencies": {
     "lucide-react": "0.468.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "tesseract.js": "7.0.0"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",

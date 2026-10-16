@@ -9,6 +9,7 @@ WORKDIR /app
 ENV NODE_ENV=production HOST=0.0.0.0 PORT=3600
 COPY --from=build /app/dist ./dist
 COPY server ./server
+COPY shared ./shared
 COPY scripts/ocr.swift ./scripts/ocr.swift
 RUN mkdir .data && chown -R node:node /app
 USER node

@@ -1,0 +1,11 @@
+{
+ "status":"design-only; not applied to tenant",
+ "ownership":"UserOwned with Entra-backed site owner teams",
+ "roles":[
+  {"name":"FieldOps Driver","delivery":{"read":"User","create":"User","write":"User","delete":"None","assign":"None","share":"None"},"site":{"read":"Organization","write":"None"},"document":{"read":"User","create":"User"},"integrationjob":{"read":"None","write":"None"}},
+  {"name":"FieldOps Site Manager","delivery":{"read":"Site owner team","write":"Controlled custom API","delete":"None"},"approval":"Same site, different initiating user"},
+  {"name":"FieldOps Integration","delivery":{"read":"Approved scope","write":"ERP/status fields via server operation"},"integrationjob":{"read":"Organization","create":"Organization","write":"Organization"},"audit":{"create":"Organization","update":"None","delete":"None"}}
+ ],
+ "serverRules":["Positive finite quantities","Known site and unit","Reference uniqueness","Deviation above 5 percent requires note","Document proposal must be human-confirmed","Approver is independent from submitter","Only approved payloads sent to ERP","Synced records cannot be edited directly"],
+ "productionGate":"Register and test synchronous server validation, field security, alternate keys and team ownership before users receive write access."
+}

@@ -1,0 +1,21 @@
+✔ chauffeur ziet uitsluitend eigen leveringen en kan geen andere werf registreren (3.558791ms)
+✔ validatie beschermt hoeveelheden, unieke referenties en afwijkingsreden (1.181083ms)
+✔ indienen, onafhankelijk goedkeuren en ERP leveren audit en unieke ontvangst (1.294125ms)
+✔ verouderde beslissing en dubbele indiening worden geweigerd (0.680875ms)
+✔ afwijzen met reden laat herindiening toe (0.607291ms)
+✔ ERP-storing geeft retries, dead letter en meldingen zonder sync (0.799916ms)
+✔ vreemde levering en document blijven afgeschermd (0.530583ms)
+✔ OCR wordt nooit automatisch bevestigd; ontbrekende velden en lage confidence gemarkeerd (0.541958ms)
+✔ document blokkeert indiening totdat leveringswaarden menselijk bevestigd zijn (0.826458ms)
+✔ aparte ERP-test-API bewaakt sleutel, idempotentie en payloadconflict (88.07425ms)
+✔ API vereist sessie en blokkeert cross-origin mutatie en externe ERP-calls (100.334042ms)
+✔ chauffeur kan beheerroutes of andere werf niet gebruiken (7.157792ms)
+✔ upload valideert MIME-signature en schermt opgeslagen document af (8.590375ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 190.292167

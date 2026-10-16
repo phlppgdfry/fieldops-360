@@ -1,0 +1,74 @@
+Register As screen:
+    HeaderRegister As label:
+        Text: ="Nieuwe levering"
+        X: =20
+        Y: =25
+        Width: =350
+        Size: =24
+
+    RefInput As text:
+        Default: =""
+        HintText: ="Bonnummer"
+        X: =20
+        Y: =100
+        Width: =350
+        Height: =46
+
+    SupplierInput As text:
+        Default: =""
+        HintText: ="Leverancier"
+        X: =20
+        Y: =160
+        Width: =350
+        Height: =46
+
+    QuantityInput As text:
+        Default: =""
+        HintText: ="Geleverde hoeveelheid in ton"
+        Format: =TextFormat.Number
+        X: =20
+        Y: =220
+        Width: =350
+        Height: =46
+
+    ExpectedInput As text:
+        Default: ="24"
+        HintText: ="Bestelde hoeveelheid"
+        Format: =TextFormat.Number
+        X: =20
+        Y: =280
+        Width: =350
+        Height: =46
+
+    NoteInput As text:
+        Default: =""
+        HintText: ="Toelichting bij afwijking > 5%"
+        Mode: =TextMode.MultiLine
+        X: =20
+        Y: =340
+        Width: =350
+        Height: =90
+
+    PhotoHelp As label:
+        Text: ="Bonfoto en OCR: beschikbaar in de webdemo. Native mediabinding volgt na Studio-validatie."
+        X: =20
+        Y: =450
+        Width: =350
+        Height: =120
+        Size: =12
+
+    SaveDelivery As button:
+        Text: ="Registreren"
+        X: =20
+        Y: =635
+        Width: =350
+        Height: =48
+        Fill: =RGBA(8,127,112,1)
+        OnSelect: =If(IsBlank(Trim(RefInput.Text)) || IsBlank(Trim(SupplierInput.Text)) || !IsNumeric(QuantityInput.Text) || !IsNumeric(ExpectedInput.Text) || Value(QuantityInput.Text)<=0 || Value(ExpectedInput.Text)<=0, Notify("Vul bon, leverancier en positieve hoeveelheden in",NotificationType.Error), !IsBlank(LookUp(colDeliveries,Reference=Upper(Trim(RefInput.Text)))), Notify("Bonnummer bestaat al",NotificationType.Error), Abs(Value(QuantityInput.Text)-Value(ExpectedInput.Text))/Value(ExpectedInput.Text)>0.05 && IsBlank(Trim(NoteInput.Text)), Notify("Motiveer de afwijking",NotificationType.Error), Collect(colDeliveries,{Reference:Upper(Trim(RefInput.Text)),Supplier:Trim(SupplierInput.Text),Quantity:Value(QuantityInput.Text),Expected:Value(ExpectedInput.Text),Note:NoteInput.Text,Status:"Ter controle",Confirmed:false,Photo:varPhoto}); Notify("Levering geregistreerd",NotificationType.Success); Reset(RefInput); Reset(SupplierInput); Reset(QuantityInput); Reset(NoteInput); Set(varPhoto,Blank()); Navigate(Home))
+
+    CancelRegister As button:
+        Text: ="Terug"
+        X: =20
+        Y: =700
+        Width: =350
+        OnSelect: =Navigate(Home)

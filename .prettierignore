@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.data/
+power-platform/canvas-legacy/
+power-platform/solution/
+package-lock.json
+docs/processes/*.bpmn

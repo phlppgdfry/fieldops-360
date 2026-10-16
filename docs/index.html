@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FieldOps 360 — Portfolio-case</title>
+    <meta
+      name="description"
+      content="Digital Operations Transformation: werkende lokale demo met OCR, onafhankelijke goedkeuring en ERP-integratie."
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #fff;
+        color: #142b32;
+        font:
+          16px/1.7 -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      header,
+      main,
+      footer {
+        max-width: 1100px;
+        margin: auto;
+        padding: 25px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e5edeb;
+      }
+      a {
+        color: #087f70;
+      }
+      header strong {
+        font-size: 22px;
+      }
+      h1 {
+        font-size: clamp(38px, 6vw, 66px);
+        line-height: 1.12;
+        letter-spacing: -2px;
+        font-weight: 650;
+        max-width: 850px;
+        margin: 60px 0 24px;
+      }
+      p {
+        color: #647e80;
+        max-width: 760px;
+      }
+      .button {
+        background: #087f70;
+        color: white;
+        text-decoration: none;
+        padding: 12px 18px;
+        border-radius: 5px;
+        display: inline-block;
+        margin: 15px 12px 20px 0;
+        font-size: 14px;
+      }
+      img,
+      video {
+        display: block;
+        max-width: 100%;
+        border: 1px solid #dfebe7;
+        border-radius: 7px;
+        margin: 25px 0;
+      }
+      h2 {
+        font-size: 29px;
+        margin-top: 55px;
+        letter-spacing: -0.6px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+      }
+      .notice {
+        padding: 20px 24px;
+        background: #f0f7f2;
+        border-left: 3px solid #75a48f;
+        font-size: 14px;
+        margin: 35px 0;
+      }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      footer {
+        border-top: 1px solid #e4edeb;
+        font-size: 12px;
+        color: #819791;
+        margin-top: 50px;
+      }
+      details {
+        padding: 15px 0;
+        border-bottom: 1px solid #e4edeb;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 550;
+      }
+      video {
+        background: #142b32;
+        aspect-ratio: 1.44;
+      }
+      small {
+        color: #78928b;
+      }
+      @media (max-width: 650px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        header a {
+          font-size: 12px;
+        }
+        h1 {
+          margin-top: 35px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>FieldOps <span style="color: #087f70">360</span></strong
+      ><a href="https://github.com/phlppgdfry/fieldops-360"
+        >Bekijk de repository ↗</a
+      >
+    </header>
+    <main>
+      <h1>Grip op elke levering.<br />Van de werf tot het ERP.</h1>
+      <p>
+        Een uitgewerkte digitaliseringscase voor een fictieve West-Vlaamse
+        bouwgroep. Met mobiele registratie, echte documentherkenning,
+        onafhankelijke goedkeuring en betrouwbare ERP-overdracht.
+      </p>
+      <a class="button" href="#demo">Bekijk de demonstratie ↓</a
+      ><a href="https://github.com/phlppgdfry/fieldops-360#zelf-draaien"
+        >Zelf lokaal draaien ↗</a
+      ><img
+        src="evidence/dashboard-desktop.png"
+        alt="FieldOps 360 operationeel dashboard met leveringen, statussen en auditspoor"
+      />
+      <div class="notice">
+        <strong>Transparante opleverstatus</strong><br />De lokale webdemo werkt
+        en is getest. De mobiele Canvas-collectieapp is verpakt;
+        Studio-validatie staat open. De volledige native Power
+        Platform-installatie wacht op Dataverse-rechten.
+        <a
+          href="https://github.com/phlppgdfry/fieldops-360/blob/main/docs/delivery-status.md"
+          >Bekijk het bewijs en de open punten.</a
+        >
+      </div>
+      <h2 id="demo">Een levering, van begin tot einde.</h2>
+      <p>
+        Een echte opname van de lokale demo: bonfoto lezen, menselijk
+        bevestigen, onafhankelijk goedkeuren en één ERP-ontvangst. Nederlandse
+        ondertiteling beschikbaar via CC.
+      </p>
+      <video
+        controls
+        preload="metadata"
+        poster="evidence/dashboard-desktop.png"
+      >
+        <source src="evidence/demo.webm" type="video/webm" />
+        <track
+          src="evidence/demo.nl.vtt"
+          kind="subtitles"
+          srclang="nl"
+          label="Nederlands"
+          default
+        />
+        Je browser ondersteunt deze video niet.
+      </video>
+      <div class="grid">
+        <section>
+          <h2>Het zakelijke probleem</h2>
+          <p>
+            200 medewerkers, 40 chauffeurs en meerdere werven. Papier, Excel en
+            e-mail zorgen voor dubbel werk en versnipperde informatie. FieldOps
+            brengt registratie, beoordeling en overdracht in één controleerbare
+            route.
+          </p>
+        </section>
+        <section>
+          <h2>De technische keuzes</h2>
+          <p>
+            Een reproduceerbare React/Node-demo met relationele opslag,
+            serverrechten, echte ML-OCR en een duurzame integratiewachtrij.
+            Native Power Platform-bronnen worden afzonderlijk gevalideerd, met
+            een expliciete lijst van open opleverpunten.
+          </p>
+        </section>
+      </div>
+      <h2>Meer dan een mooi scherm.</h2>
+      <details>
+        <summary>Business Analysis en processen</summary>
+        <p>
+          Discovery-workshop, stakeholdermap, AS-IS/TO-BE BPMN, requirements,
+          user stories en acceptatiecriteria.
+        </p>
+      </details>
+      <details>
+        <summary>Betrouwbaarheid en menselijke controle</summary>
+        <p>
+          Afwijkingsreden, onafhankelijke goedkeuring, verplichte OCR-review,
+          idempotentie, retries, foutmeldingen en auditspoor.
+        </p>
+      </details>
+      <details>
+        <summary>Implementatie en adoptie</summary>
+        <p>
+          Testplan, UAT-draaiboek, handleiding, DEV/TEST/PROD-plan, rollback,
+          pilotaanpak en een ROI-model met toetsbare aannames.
+        </p>
+      </details>
+      <div class="links" style="margin-top: 30px">
+        <a href="https://github.com/phlppgdfry/fieldops-360/tree/main/docs"
+          >Lees de documentatie ↗</a
+        ><a href="https://github.com/phlppgdfry/fieldops-360/tree/main/tests"
+          >Bekijk de tests ↗</a
+        ><a
+          href="https://github.com/phlppgdfry/fieldops-360/tree/main/power-platform"
+          >Power Platform-bronnen ↗</a
+        >
+      </div>
+    </main>
+    <footer>
+      Philippe Godfroy · Onafhankelijke portfolio-case · Fictieve gegevens · ROI
+      is een aanname, geen gerealiseerd resultaat.
+    </footer>
+  </body>
+</html>

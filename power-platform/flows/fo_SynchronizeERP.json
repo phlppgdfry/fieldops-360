@@ -1,0 +1,193 @@
+{
+  "name": "fo_SynchronizeERP",
+  "description": "SOURCE TEMPLATE: real ERP endpoint, auth, claim/lease and alternate key required",
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "fo_Dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "fo_ApproverEmail": {
+          "defaultValue": "",
+          "type": "String"
+        },
+        "fo_ErpEndpoint": {
+          "defaultValue": "",
+          "type": "String"
+        },
+        "fo_ErpKey": {
+          "type": "SecureString"
+        }
+      },
+      "triggers": {
+        "Queued_job": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "fo_integrationjob",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filterexpression": "fo_state eq 'queued'"
+            }
+          },
+          "conditions": [],
+          "runtimeConfiguration": {
+            "concurrency": {
+              "runs": 1
+            }
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "type": "Scope",
+          "actions": {
+            "Get_delivery": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "fo_deliveries",
+                  "recordId": "@triggerOutputs()?['body/_fo_deliveryid_value']"
+                }
+              },
+              "runAfter": {}
+            },
+            "Post_ERP": {
+              "type": "Http",
+              "inputs": {
+                "uri": "@parameters('fo_ErpEndpoint')",
+                "method": "POST",
+                "headers": {
+                  "Content-Type": "application/json",
+                  "Idempotency-Key": "@triggerOutputs()?['body/fo_idempotencykey']",
+                  "Authorization": "@concat('Bearer ',parameters('fo_ErpKey'))"
+                },
+                "body": {
+                  "reference": "@outputs('Get_delivery')?['body/fo_reference']",
+                  "quantity": "@outputs('Get_delivery')?['body/fo_quantity']",
+                  "unit": "@outputs('Get_delivery')?['body/fo_unit']"
+                },
+                "retryPolicy": {
+                  "type": "exponential",
+                  "count": 2,
+                  "interval": "PT10S"
+                }
+              },
+              "runtimeConfiguration": {
+                "secureData": {
+                  "properties": [
+                    "inputs",
+                    "outputs"
+                  ]
+                }
+              },
+              "runAfter": {
+                "Get_delivery": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Save_receipt": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "fo_deliveries",
+                  "recordId": "@triggerOutputs()?['body/_fo_deliveryid_value']",
+                  "item/fo_status": "synced",
+                  "item/fo_erp_id": "@body('Post_ERP')?['id']"
+                }
+              },
+              "runAfter": {
+                "Post_ERP": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Complete_job": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "fo_integrationjobs",
+                  "recordId": "@triggerOutputs()?['body/fo_integrationjobid']",
+                  "item/fo_state": "done"
+                }
+              },
+              "runAfter": {
+                "Save_receipt": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "runAfter": {}
+        },
+        "Catch": {
+          "type": "Scope",
+          "actions": {
+            "Dead_letter": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "fo_integrationjobs",
+                  "recordId": "@triggerOutputs()?['body/fo_integrationjobid']",
+                  "item/fo_state": "dead",
+                  "item/fo_error": "ERP-integratie mislukt; controleer beveiligde runhistoriek."
+                }
+              },
+              "runAfter": {}
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,692 @@
+[
+  {
+    "@odata.type": "Microsoft.Dynamics.CRM.EntityMetadata",
+    "SchemaName": "fo_site",
+    "DisplayName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Werf",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "DisplayCollectionName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Werven",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "OwnershipType": "UserOwned",
+    "IsActivity": false,
+    "HasActivities": false,
+    "HasNotes": true,
+    "IsAuditEnabled": {
+      "Value": true
+    },
+    "Attributes": [
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_name",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Werf",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "ApplicationRequired"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        },
+        "IsPrimaryName": true
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_location",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Locatie",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        }
+      }
+    ]
+  },
+  {
+    "@odata.type": "Microsoft.Dynamics.CRM.EntityMetadata",
+    "SchemaName": "fo_employee",
+    "DisplayName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Medewerker",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "DisplayCollectionName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Medewerkers",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "OwnershipType": "UserOwned",
+    "IsActivity": false,
+    "HasActivities": false,
+    "HasNotes": true,
+    "IsAuditEnabled": {
+      "Value": true
+    },
+    "Attributes": [
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_name",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Medewerker",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "ApplicationRequired"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        },
+        "IsPrimaryName": true
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_email",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Zakelijke e-mail",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_role",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Operationele rol",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        }
+      }
+    ]
+  },
+  {
+    "@odata.type": "Microsoft.Dynamics.CRM.EntityMetadata",
+    "SchemaName": "fo_delivery",
+    "DisplayName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Levering",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "DisplayCollectionName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Leveringen",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "OwnershipType": "UserOwned",
+    "IsActivity": false,
+    "HasActivities": false,
+    "HasNotes": true,
+    "IsAuditEnabled": {
+      "Value": true
+    },
+    "Attributes": [
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_name",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Levering",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "ApplicationRequired"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        },
+        "IsPrimaryName": true
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_reference",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Bonnummer",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 40,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_supplier",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Leverancier",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.DecimalAttributeMetadata",
+        "SchemaName": "fo_quantity",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Geleverd",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "ApplicationRequired"
+        },
+        "MinValue": 0.001,
+        "MaxValue": 100000,
+        "Precision": 3
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.DecimalAttributeMetadata",
+        "SchemaName": "fo_expected",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Besteld",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "ApplicationRequired"
+        },
+        "MinValue": 0.001,
+        "MaxValue": 100000,
+        "Precision": 3
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_unit",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Eenheid",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 10,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_status",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Processtatus",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 30,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_note",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Afwijkingsreden",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 2000,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_erp_id",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "ERP ontvangst",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 100,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.BooleanAttributeMetadata",
+        "SchemaName": "fo_confirmed",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Menselijk bevestigd",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "DefaultValue": false,
+        "OptionSet": {
+          "TrueOption": {
+            "Value": 1,
+            "Label": {
+              "LocalizedLabels": [
+                {
+                  "Label": "Ja",
+                  "LanguageCode": 1033
+                }
+              ]
+            }
+          },
+          "FalseOption": {
+            "Value": 0,
+            "Label": {
+              "LocalizedLabels": [
+                {
+                  "Label": "Nee",
+                  "LanguageCode": 1033
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "@odata.type": "Microsoft.Dynamics.CRM.EntityMetadata",
+    "SchemaName": "fo_document",
+    "DisplayName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Document",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "DisplayCollectionName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Documenten",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "OwnershipType": "UserOwned",
+    "IsActivity": false,
+    "HasActivities": false,
+    "HasNotes": true,
+    "IsAuditEnabled": {
+      "Value": true
+    },
+    "Attributes": [
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_name",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Document",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "ApplicationRequired"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        },
+        "IsPrimaryName": true
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_originalurl",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Origineel document URL",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 1000,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_extracted",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "OCR resultaat JSON",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 4000,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_provider",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "OCR provider",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 100,
+        "FormatName": {
+          "Value": "Text"
+        }
+      }
+    ]
+  },
+  {
+    "@odata.type": "Microsoft.Dynamics.CRM.EntityMetadata",
+    "SchemaName": "fo_integrationjob",
+    "DisplayName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Integratietaak",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "DisplayCollectionName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Integratietaken",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "OwnershipType": "UserOwned",
+    "IsActivity": false,
+    "HasActivities": false,
+    "HasNotes": true,
+    "IsAuditEnabled": {
+      "Value": true
+    },
+    "Attributes": [
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_name",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Integratietaak",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "ApplicationRequired"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        },
+        "IsPrimaryName": true
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_state",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Taakstatus",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_error",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Laatste fout",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 2000,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_idempotencykey",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Idempotentiesleutel",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 100,
+        "FormatName": {
+          "Value": "Text"
+        }
+      }
+    ]
+  },
+  {
+    "@odata.type": "Microsoft.Dynamics.CRM.EntityMetadata",
+    "SchemaName": "fo_auditevent",
+    "DisplayName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Auditgebeurtenis",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "DisplayCollectionName": {
+      "LocalizedLabels": [
+        {
+          "Label": "Auditgebeurtenissen",
+          "LanguageCode": 1033
+        }
+      ]
+    },
+    "OwnershipType": "UserOwned",
+    "IsActivity": false,
+    "HasActivities": false,
+    "HasNotes": true,
+    "IsAuditEnabled": {
+      "Value": true
+    },
+    "Attributes": [
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_name",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Auditgebeurtenis",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "ApplicationRequired"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        },
+        "IsPrimaryName": true
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_event",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Gebeurtenis",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 150,
+        "FormatName": {
+          "Value": "Text"
+        }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "SchemaName": "fo_detail",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Detail",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 4000,
+        "FormatName": {
+          "Value": "Text"
+        }
+      }
+    ]
+  }
+]

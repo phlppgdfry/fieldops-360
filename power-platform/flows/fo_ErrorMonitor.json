@@ -1,0 +1,122 @@
+{
+  "name": "fo_ErrorMonitor",
+  "description": "SOURCE TEMPLATE: creates internal audit alerts; no outbound mail enabled",
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "fo_Dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "fo_ApproverEmail": {
+          "defaultValue": "",
+          "type": "String"
+        },
+        "fo_ErpEndpoint": {
+          "defaultValue": "",
+          "type": "String"
+        },
+        "fo_ErpKey": {
+          "type": "SecureString"
+        }
+      },
+      "triggers": {
+        "Every_15_minutes": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 15
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "runs": 1
+            }
+          }
+        }
+      },
+      "actions": {
+        "List_dead_jobs": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "fo_integrationjobs",
+              "$filter": "fo_state eq 'dead'",
+              "$top": 5000
+            }
+          },
+          "runAfter": {}
+        },
+        "Each_job": {
+          "type": "Foreach",
+          "foreach": "@outputs('List_dead_jobs')?['body/value']",
+          "actions": {
+            "Audit_alert": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "fo_auditevents",
+                  "item/fo_name": "ERP-foutmelding",
+                  "item/fo_event": "integration_error",
+                  "item/fo_detail": "@items('Each_job')?['fo_error']"
+                }
+              },
+              "runAfter": {}
+            },
+            "Mark_notified": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "fo_integrationjobs",
+                  "recordId": "@items('Each_job')?['fo_integrationjobid']",
+                  "item/fo_state": "dead_notified"
+                }
+              },
+              "runAfter": {
+                "Audit_alert": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "runAfter": {
+            "List_dead_jobs": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

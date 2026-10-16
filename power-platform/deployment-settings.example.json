@@ -1,0 +1,5 @@
+{
+ "EnvironmentVariables":[{"SchemaName":"fo_ErpEndpoint","Value":"https://erp-sandbox.example.invalid/receipts"},{"SchemaName":"fo_ApproverEmail","Value":""}],
+ "ConnectionReferences":[{"LogicalName":"fo_Dataverse","ConnectionId":"","ConnectorId":"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"},{"LogicalName":"fo_Approvals","ConnectionId":"","ConnectorId":"/providers/Microsoft.PowerApps/apis/shared_approvals"}],
+ "Note":"Example only. Create actual solution environment-variable definitions and connection references before using PAC settings; ERP secret is not stored here."
+}

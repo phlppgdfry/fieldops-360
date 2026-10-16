@@ -1,0 +1,37 @@
+Review As screen:
+    HeaderReview As label:
+        Text: =varDelivery.Reference
+        X: =20
+        Y: =25
+        Width: =350
+        Size: =24
+
+    DetailsReview As label:
+        Text: =varDelivery.Supplier & Char(10) & Text(varDelivery.Quantity) & " ton geleverd / " & Text(varDelivery.Expected) & " besteld" & Char(10) & varDelivery.Note & Char(10) & varDelivery.Status
+        X: =20
+        Y: =100
+        Width: =350
+        Height: =200
+        Size: =16
+
+    PhotoReview As image:
+        Image: =varDelivery.Photo
+        X: =20
+        Y: =320
+        Width: =350
+        Height: =200
+
+    ReviewNotice As label:
+        Text: ="Goedkeuring gebeurt door een onafhankelijke werfleider in de backend. Deze Canvas-collectie-demo verleent geen rechten en synchroniseert niet met Dataverse."
+        X: =20
+        Y: =540
+        Width: =350
+        Height: =120
+        Size: =12
+
+    BackReview As button:
+        Text: ="Terug naar leveringen"
+        X: =20
+        Y: =700
+        Width: =350
+        OnSelect: =Navigate(Home)

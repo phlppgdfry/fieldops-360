@@ -1,0 +1,15 @@
+{
+  "id": "3dc49dce-9c61-4d3a-a0bd-6830a6ffb72a",
+  "fields": {
+    "reference": "OCR-2026-001",
+    "supplier": "Demo Beton",
+    "quantity": 18,
+    "unit": "ton"
+  },
+  "confidence": 1,
+  "warnings": [],
+  "requiresHumanReview": true,
+  "rawText": "FIELDOPS 360\nLEVERINGSBON\nBonnummer: OCR-2026-001\nLeverancier: Demo Beton\nHoeveelheid: 18\nEenheid: ton\nWerf: Kanaalzone Brugge\nBesteld: 24 ton\nAfwijking: 6 ton ontbreekt\nFictief oefendocument - geen echte transactie",
+  "provider": "Apple Vision OCR (on-device ML)",
+  "url": "/uploads/3dc49dce-9c61-4d3a-a0bd-6830a6ffb72a"
+}

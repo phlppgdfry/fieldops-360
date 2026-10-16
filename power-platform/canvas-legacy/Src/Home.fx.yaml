@@ -1,0 +1,61 @@
+Home As screen:
+    Fill: =RGBA(255,255,255,1)
+
+    TitleHome As label:
+        Text: ="FieldOps 360"
+        X: =20
+        Y: =24
+        Width: =350
+        Height: =55
+        Size: =25
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(20,43,50,1)
+
+    SubHome As label:
+        Text: ="Mobiele collectie-demo · fictieve gegevens"
+        X: =20
+        Y: =80
+        Width: =350
+        Size: =11
+
+    SearchBon As text:
+        Default: =""
+        HintText: ="Zoek bonnummer of leverancier"
+        X: =20
+        Y: =140
+        Width: =350
+        Height: =44
+
+    NewDelivery As button:
+        Text: ="Nieuwe levering"
+        OnSelect: =Navigate(Register)
+        X: =20
+        Y: =205
+        Width: =350
+        Height: =48
+        Fill: =RGBA(8,127,112,1)
+
+    DeliveriesGallery As gallery.galleryVertical:
+        Items: =Filter(colDeliveries, IsBlank(SearchBon.Text) || StartsWith(Reference,SearchBon.Text) || StartsWith(Supplier,SearchBon.Text))
+        X: =20
+        Y: =280
+        Width: =350
+        Height: =450
+        TemplateSize: =100
+
+        BonTitle As label:
+            Text: =ThisItem.Reference & " · " & ThisItem.Supplier
+            X: =0
+            Y: =5
+            Width: =330
+            Height: =40
+            Size: =14
+            OnSelect: =Set(varDelivery,ThisItem); Navigate(Review)
+
+        BonState As label:
+            Text: =ThisItem.Status & " · " & Text(ThisItem.Quantity) & " ton"
+            X: =0
+            Y: =45
+            Width: =330
+            Size: =12
+            OnSelect: =Set(varDelivery,ThisItem); Navigate(Review)

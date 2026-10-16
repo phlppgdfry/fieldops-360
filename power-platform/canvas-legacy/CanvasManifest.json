@@ -1,0 +1,65 @@
+{
+  "FormatVersion": "0.30",
+  "Header": {
+    "DocVersion": "1.294",
+    "MinVersionToLoad": "1.294",
+    "MSAppStructureVersion": "2.0"
+  },
+  "Properties": {
+    "AppCreationSource": "AppFromScratch",
+    "AppDescription": "FieldOps 360 mobiele collectie-demo; Dataverse deployment afzonderlijk.",
+    "AppPreviewFlagsKey": [
+      "delayloadscreens",
+      "blockmovingcontrol",
+      "projectionmapping",
+      "usedisplaynamemetadata",
+      "usenonblockingonstartrule",
+      "useguiddatatypes",
+      "useexperimentalcdsconnector",
+      "useenforcesavedatalimits",
+      "componentauthoring",
+      "reliableconcurrent",
+      "dataTableV2Control",
+      "nativecdsexperimental",
+      "useexperimentalsqlconnector",
+      "enablecdsfileandlargeimage",
+      "enhanceddelegation",
+      "aibuilderserviceenrollment",
+      "enablesummerlandgeospatialfeatures",
+      "enablesummerlandmixedrealityfeatures"
+    ],
+    "Author": "",
+    "ContainsThirdPartyPcfControls": false,
+    "DefaultConnectedDataSourceMaxGetRowsCount": 500,
+    "DocumentAppType": "Phone",
+    "DocumentLayoutHeight": 844,
+    "DocumentLayoutLockOrientation": true,
+    "DocumentLayoutMaintainAspectRatio": true,
+    "DocumentLayoutOrientation": "portrait",
+    "DocumentLayoutScaleToFit": true,
+    "DocumentLayoutWidth": 390,
+    "DocumentType": "App",
+    "EnableInstrumentation": false,
+    "FileID": "bc8c4e3b-c021-4892-bafa-7efd224703e7",
+    "Id": "c065cbca-3828-4ab1-b811-77b68625ee36",
+    "InstrumentationKey": "",
+    "LastControlUniqueId": 4,
+    "LocalDatabaseReferences": "{}",
+    "Name": "FieldOps360.msapp",
+    "OriginatingVersion": "1.294"
+  },
+  "PublishInfo": {
+    "AppName": "FieldOps 360",
+    "BackgroundColor": "RGBA(0,176,240,1)",
+    "LogoFileName": "",
+    "PublishDataLocally": false,
+    "PublishResourcesLocally": false,
+    "PublishTarget": "player",
+    "UserLocale": "en-US"
+  },
+  "ScreenOrder": [
+    "Home",
+    "Register",
+    "Review"
+  ]
+}

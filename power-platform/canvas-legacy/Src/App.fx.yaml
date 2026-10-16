@@ -1,0 +1,2 @@
+App As appinfo:
+    OnStart: =ClearCollect(colDeliveries, {Reference:"BON-001", Supplier:"Demo Beton", Quantity:18, Expected:24, Note:"6 ton ontbreekt", Status:"Ter controle", Confirmed:false}); Set(varRole,"Chauffeur")

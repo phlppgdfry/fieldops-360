@@ -1,6 +1,6 @@
 
 Running 1 test using 1 worker
 
-  ✓  1 tests/ui.spec.mjs:2:1 › dashboard, zoeken, mobiele registratie, goedkeuring en ERP (5.0s)
+  ✓  1 tests/ui.spec.mjs:2:1 › dashboard, zoeken, mobiele registratie, goedkeuring en ERP (4.4s)
 
-  1 passed (5.9s)
+  1 passed (5.5s)

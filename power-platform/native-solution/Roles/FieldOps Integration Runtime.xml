@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{894fc84b-21c9-f111-a05a-7ced8d73af63}" name="FieldOps Integration Runtime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendfo_auditevent" level="Global" />
+    <RolePrivilege name="prvAppendfo_delivery" level="Global" />
+    <RolePrivilege name="prvAppendfo_document" level="Global" />
+    <RolePrivilege name="prvAppendfo_employee" level="Global" />
+    <RolePrivilege name="prvAppendfo_integrationjob" level="Global" />
+    <RolePrivilege name="prvAppendfo_site" level="Global" />
+    <RolePrivilege name="prvAppendTofo_auditevent" level="Global" />
+    <RolePrivilege name="prvAppendTofo_delivery" level="Global" />
+    <RolePrivilege name="prvAppendTofo_document" level="Global" />
+    <RolePrivilege name="prvAppendTofo_employee" level="Global" />
+    <RolePrivilege name="prvAppendTofo_integrationjob" level="Global" />
+    <RolePrivilege name="prvAppendTofo_site" level="Global" />
+    <RolePrivilege name="prvCreateCallbackRegistration" level="Global" />
+    <RolePrivilege name="prvCreatefo_auditevent" level="Global" />
+    <RolePrivilege name="prvCreatefo_delivery" level="Global" />
+    <RolePrivilege name="prvCreatefo_document" level="Global" />
+    <RolePrivilege name="prvCreatefo_integrationjob" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvDeleteCallbackRegistration" level="Global" />
+    <RolePrivilege name="prvReadCallbackRegistration" level="Global" />
+    <RolePrivilege name="prvReadfo_auditevent" level="Global" />
+    <RolePrivilege name="prvReadfo_delivery" level="Global" />
+    <RolePrivilege name="prvReadfo_document" level="Global" />
+    <RolePrivilege name="prvReadfo_employee" level="Global" />
+    <RolePrivilege name="prvReadfo_integrationjob" level="Global" />
+    <RolePrivilege name="prvReadfo_site" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWriteCallbackRegistration" level="Global" />
+    <RolePrivilege name="prvWritefo_delivery" level="Global" />
+    <RolePrivilege name="prvWritefo_document" level="Global" />
+    <RolePrivilege name="prvWritefo_integrationjob" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

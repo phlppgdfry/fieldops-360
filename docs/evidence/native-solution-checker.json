@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-17",
+  "service": "Microsoft Power Apps Solution Checker",
+  "package": "FieldOps360_unmanaged_template.zip",
+  "resultCount": 5,
+  "severityCounts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 5,
+    "low": 0
+  },
+  "rules": [
+    {
+      "rule": "flow-avoid-recursive-loop",
+      "count": 5,
+      "assessment": "Requires review. Dataverse trigger OData filters select pending, queued and dead; actions move those records to approved/rejected, done or dead_notified. Real error/recovery tests succeeded after restoring the OData filters. No zero-findings claim."
+    }
+  ],
+  "studioValidated": false,
+  "scope": "Full six-table, four-flow solution including plugin and Canvas artifact. Static analysis does not validate the Canvas runtime; Studio currently fails to open it."
+}

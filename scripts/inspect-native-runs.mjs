@@ -1,0 +1,6 @@
+import {serviceRequest} from './power-services.mjs';import {nativeState} from './native-state.mjs';import {readFile} from 'node:fs/promises';
+const env=process.env.POWER_PLATFORM_ENVIRONMENT_ID,flows=JSON.parse(await readFile(await nativeState('native-flows'),'utf8'));
+for(const [name,f]of Object.entries(flows)){
+ const root=`https://api.flow.microsoft.com/providers/Microsoft.ProcessSimple/environments/${env}/flows/${f.id}`;
+ try{const r=await serviceRequest(root+'/runs?api-version=2016-11-01&$top=3','https://service.flow.microsoft.com/');console.log(JSON.stringify({flow:name,runs:r.value?.map(x=>({id:x.name,status:x.properties?.status,start:x.properties?.startTime,code:x.properties?.error?.code,message:x.properties?.error?.message?.slice(0,350)}))}));for(const run of (r.value||[]).filter(x=>x.properties?.status==='Failed').slice(0,1)){const a=await serviceRequest(root+`/runs/${run.name}/actions?api-version=2016-11-01`,'https://service.flow.microsoft.com/');console.log(JSON.stringify({flow:name,actions:a.value?.map(x=>({name:x.name,status:x.properties?.status,error:x.properties?.error?.code,message:x.properties?.error?.message?.slice(0,350)}))}));}}catch(e){console.log(name,e.message.slice(0,500))}
+}

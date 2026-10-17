@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{572eb5ac-28a4-49ae-9176-4a177ff4a28e}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{b40994b2-e1b4-432b-b7eb-2fbac3ab578a}" IsUserDefined="1">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="33%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{2a11f70c-b548-4eeb-bd89-89df905712da}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{829de625-00bd-4aed-b059-d30623d92a60}">
+                        <labels>
+                          <label description="Naam" languagecode="1033" />
+                        </labels>
+                        <control id="fo_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="fo_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{deb09f61-4c72-41ae-8d04-fed561037bba}">
+                        <labels>
+                          <label description="Eigenaar" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="66%">
+              <sections>
+                <section showlabel="false" showbar="false" id="{02da2d48-123c-43dc-8470-5b78033d0ee6}" IsUserDefined="0" height="auto">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell showlabel="false" rowspan="15" auto="false" id="{9aca6f64-3ee0-4bb5-8518-57a54d2c9019}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}">
+                          <parameters>
+                            <DefaultTabId>NotesTab</DefaultTabId>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row height="auto" />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Informatie" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Een formulier voor deze entiteit." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

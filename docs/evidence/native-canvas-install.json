@@ -1,0 +1,13 @@
+{
+  "id": "c5dcd35c-8c3c-42e9-9cee-565c1f84cfdb",
+  "name": "FieldOps 360 Native",
+  "fileStored": true,
+  "solution": "FieldOps360",
+  "studioValidated": false,
+  "checkedAt": "2026-10-16T05:24:52.673Z",
+  "registered": false,
+  "phase": "Dataverse file stored only; not a registered runnable Power App",
+  "solutionMembership": "removed: not a registered Power App",
+  "supersededBy": "native-app-registry.json",
+  "historical": true
+}

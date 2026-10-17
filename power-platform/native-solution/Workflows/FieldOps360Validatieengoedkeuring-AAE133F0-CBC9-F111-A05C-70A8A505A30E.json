@@ -1,0 +1,220 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "fo_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_approvals": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "fo_approvals"
+        },
+        "api": {
+          "name": "shared_approvals"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "Delivery_pending": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "fo_delivery",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filterexpression": "fo_status eq 'pending'",
+              "subscriptionRequest/filteringattributes": "fo_status"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "runs": 1
+            }
+          }
+        }
+      },
+      "actions": {
+        "Validate": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "greater": [
+                  "@triggerOutputs()?['body/fo_quantity']",
+                  0
+                ]
+              },
+              {
+                "greater": [
+                  "@triggerOutputs()?['body/fo_expected']",
+                  0
+                ]
+              },
+              {
+                "not": {
+                  "equals": [
+                    "@triggerOutputs()?['body/_createdby_value']",
+                    "1eb2c0ac-82c7-f111-a05a-70a8a5081e99"
+                  ]
+                }
+              }
+            ]
+          },
+          "actions": {
+            "Approval": {
+              "type": "OpenApiConnectionWebhook",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals",
+                  "connectionName": "shared_approvals",
+                  "operationId": "StartAndWaitForAnApproval"
+                },
+                "parameters": {
+                  "approvalType": "Basic",
+                  "WebhookApprovalCreationInput/title": "@concat('FieldOps levering ',triggerOutputs()?['body/fo_reference'])",
+                  "WebhookApprovalCreationInput/assignedTo": "info@reviewell.com",
+                  "WebhookApprovalCreationInput/details": "@concat('Controleer hoeveelheid, originele bon en afwijking. ',triggerOutputs()?['body/fo_note'])",
+                  "WebhookApprovalCreationInput/enableNotifications": false,
+                  "WebhookApprovalCreationInput/enableReassignment": false
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "limit": {
+                "timeout": "P2D"
+              },
+              "runAfter": {}
+            },
+            "Decision": {
+              "type": "If",
+              "expression": {
+                "equals": [
+                  "@outputs('Approval')?['body/outcome']",
+                  "Approve"
+                ]
+              },
+              "actions": {
+                "Approve": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord"
+                    },
+                    "parameters": {
+                      "entityName": "fo_deliveries",
+                      "recordId": "@triggerOutputs()?['body/fo_deliveryid']",
+                      "item/fo_status": "approved"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runAfter": {}
+                },
+                "Queue": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "CreateRecord"
+                    },
+                    "parameters": {
+                      "entityName": "fo_integrationjobs",
+                      "item/fo_name": "@triggerOutputs()?['body/fo_reference']",
+                      "item/fo_state": "queued",
+                      "item/fo_idempotencykey": "@triggerOutputs()?['body/fo_deliveryid']",
+                      "item/fo_deliveryid@odata.bind": "@concat('/fo_deliveries(',triggerOutputs()?['body/fo_deliveryid'],')')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runAfter": {
+                    "Approve": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Reject": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "UpdateRecord"
+                      },
+                      "parameters": {
+                        "entityName": "fo_deliveries",
+                        "recordId": "@triggerOutputs()?['body/fo_deliveryid']",
+                        "item/fo_status": "rejected",
+                        "item/fo_note": "@string(outputs('Approval')?['body/responses'])"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    },
+                    "runAfter": {}
+                  }
+                }
+              },
+              "runAfter": {
+                "Approval": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Blocked": {
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "CreateRecord"
+                  },
+                  "parameters": {
+                    "entityName": "fo_auditevents",
+                    "item/fo_name": "Goedkeuring geblokkeerd",
+                    "item/fo_event": "approval_validation_blocked",
+                    "item/fo_detail": "Controleer data en onafhankelijke goedkeurder."
+                  },
+                  "authentication": "@parameters('$authentication')"
+                },
+                "runAfter": {}
+              }
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

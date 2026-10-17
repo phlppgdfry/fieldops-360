@@ -1,33 +1,36 @@
-# Opleverstatus — bewijs boven claims
+# Opleverstatus — controleerbaar bewijs
 
-| Gevraagd onderdeel | Opgeleverd | Verificatie / resterend werk |
+| Onderdeel | Werkelijke status | Bewijs / grens |
 |---|---|---|
-| Business Analysis | Probleem, stakeholders, workshop, requirements, 13 stories, criteria, prioriteiten | Uitgewerkt; aannames niet door echt bedrijf gevalideerd |
-| AS-IS/TO-BE BPMN | Twee bewerkbare BPMN 2.0-bestanden met diagraminformatie | XML, referenties en diagramdekking gecontroleerd |
-| Publieke GitHub Pages-demo | Echte browser-OCR, registratie, review, goedkeuring, gesimuleerde ERP/retries; opslag per bezoeker | Browserroute getest; deployment via Pages-workflow |
-| Mobiele werkende demo | React + Node + SQLite; registratie, upload, zoeken, statussen, audit | Browserroute desktop/mobiel geslaagd |
-| Echte Canvas App-bron en bestand | Mobiele 3-schermen collectievariant + `FieldOps360.msapp` | PAC pack en unpack geslaagd; Power Apps Studio/player-validatie nog vereist |
-| Dataverse-verbinding Canvas | Datamodel, bronnen en bindingsuitleg | Niet gekoppeld: tenantrechten en Studio-validatie open |
-| Dataverse | 6 relationele tabeldefinities + provisioningscript; publisher en FieldOps360 solution aangemaakt | Tabelcreatie geblokkeerd door ontbrekend `prvCreateEntity`; tabellen/rollen niet live geïnstalleerd |
-| 3 werkende workflows | Goedkeuring, duurzame ERP-sync en foutmelding/herstel in lokale backend | Unit/API/UI-tests geslaagd |
-| Power Automate | 3 volledige brondefinities met connectorreferenties en ontwerp | Niet als werkende Microsoft cloud flows claimen: binding, onafhankelijke approval, security en tenantproeven open |
-| AI-documentverwerking | Echte Apple Vision ML-OCR op PNG + extractie en menselijke bevestiging | Herkende reference/supplier/quantity/unit; bewijs in ocr-result.json |
-| Azure/AI Builder | Optionele Azure-adapter, ontwerp voor native integratie | Niet cloudgetest; geen AI Builder-model getraind/gepubliceerd |
-| ERP | Lokale test-API met idempotentie + aparte sleutelbeveiligde sandbox + connectorcontract | Lokale keten getest; geen commercieel ERP aangesloten |
-| Security | Server-side rechten, validatie, veilige bestandsroute en onafhankelijke goedkeuring in webdemo | Demo-rolselector alleen lokaal; native rollen en serveractie nog open |
-| Tests en UAT | 13 unit/API-tests + browserworkflow, OCR-proef, plan met 20 testscenario's | UAT door echte eindgebruikers niet uitgevoerd of ondertekend |
-| Implementatie | DEV/TEST/PROD, rollback, beheer, pilot en adoptie | Uitgewerkt; geen productie-go |
-| ROI | Interactieve calculator + scenarioanalyse | Formules gecontroleerd; inputs zijn aannames |
-| Screenshots / video | Desktop, mobiel, ERP-status; echte opname met Nederlandse ondertitels | Bewijs van webdemo; geen opname native Power Apps |
-| Exportable solution | Solution-bronscaffold en exportinstructies | Geen complete solution-zip: export pas na native installatie |
+| Business Analysis | Probleem, stakeholders, workshop, requirements, stories, criteria, ROI | Uitgewerkt; fictieve bedrijfscase, geen klantvalidatie |
+| BPMN | AS-IS en TO-BE met diagraminformatie | XML, referenties en diagramdekking gecontroleerd |
+| Publieke demo | Echte Tesseract-OCR, menselijke controle, registratie, review, gesimuleerde ERP, filters, CSV en rondleiding | 3 Chromium-tests desktop/mobiel; opslag per bezoeker, geen Microsoft-koppeling |
+| Lokale backend | Autorisatie, SQLite, Apple Vision, echte lokale ERP-test-API | 14 unit/API-tests; browserworkflow |
+| Eigen Microsoft-omgeving | FieldOps 360 DEV, Developer Plan, eigen Dataverse | [Omgeving](native-environment.md); Halverdijk blijft apart |
+| Dataverse | Zes tabellen, zes relaties, drie fictieve werven | dataverse-deployment.json |
+| Securityrollen | Chauffeur, werfleider, beperkte integratieruntime | native-security-roles.json; geen extra mensen toegewezen; werfleider ziet alle FieldOps-werven |
+| Servervalidatie | Synchrone Create/Update-plug-in, unieke bon- en integratiesleutels | Directe API-tests voor afwijkingsreden, bevestiging, status en onveranderlijke goedgekeurde hoeveelheid |
+| Canvas App | Geregistreerd, gepubliceerd, echte Dataverse-bronnen; drie mobiele schermen, zoeken, werfkeuze, eenheden en menselijke bevestiging | native-app-registry.json; player geeft publicatiefout en Studio geeft ErrOpeningDocument_UnknownError; native foto-invoer nog open |
+| Power Automate | Vier actieve flows: ERP-test-API, goedkeuring, ERP-sync en foutmelding | native-flow-runs.json; echte runs, geen bronontwerpclaim |
+| Native ERP | Echte HTTP-testdienst en ontvangst in Dataverse | 9 runtimechecks en 5 storing/herstelchecks geslaagd; geen commercieel ERP |
+| Native menselijke goedkeuring | Gebruiker heeft UAT-bon bewust goedgekeurd in Microsoft Approvals | native-approval-uat.json; eerste overdracht vereiste herstel, uiteindelijk gesynchroniseerd met één taak |
+| AI | Werkende browser-OCR en menselijke bevestiging | AI Builder niet inbegrepen/gepubliceerd; native document-/OCR-koppeling nog open |
+| Microsoft Solution Checker | Volledige export: 0 critical/high, 5 medium meldingen over mogelijke flow-recursie | native-solution-checker.json; statusfilters en geslaagde runtimechecks onderbouwen de afhandeling; meldingen blijven zichtbaar |
+| Solution-export | Echte export met tabellen, rollen, plug-in, Canvas App en vier flows; deelbare template en uitgepakte bron | Gesigneerde URL verwijderd; flows uitgeschakeld voor nieuwe import; binding en runtime-config per doelomgeving nodig |
+| Screenshots/video | Webdemo-opname, ondertitels, desktop en mobiel; nieuw ontwerp en rondleiding | Geen native Canvas-runtimevideo of verzonnen bedrijfs-UAT |
+| Implementatie/adoptie | Deployment, rollback, pilot, beheer, handleiding en ROI | Productiegoedkeuring en meergebruikers-UAT blijven open |
 
-## Uitvoeringsvormen
-- GitHub Pages: publiek, volledig in browser; OCR echt, ERP gesimuleerd; geen Microsoft-verbinding.
-- Lokale backend: serverautorisatie, SQLite en echte ERP-test-API; Apple Vision op macOS.
-- Native Microsoft: afzonderlijk te installeren; nog geblokkeerd door Dataverse-rechten. De beheerprocedure staat in [microsoft-admin-steps.md](microsoft-admin-steps.md).
+## Wat is werkelijk getest?
 
-## Concrete Microsoft-blokkade
-De bestaande omgeving herkent de organisatiegebruiker, maar de metadata-API weigert nieuwe tabellen met HTTP 403, `PrivilegeName: prvCreateEntity`. De gebruiker laat rechten toekennen in deze omgeving. Er zijn geen adminrollen door scripts toegekend. De aangemaakte FieldOps360-solution bevat nog geen volledige native oplossing. Zodra de rechten beschikbaar zijn: provisioning opnieuw uitvoeren, app en flows verbinden, servervalidatie/rollen implementeren, checker en runhistoriek vastleggen, daarna solution exporteren.
+De native ERP-API geeft echte 200/422/503-antwoorden. Een Dataverse-trigger verwerkt een goedgekeurde testlevering en bewaart een ERP-ontvangst. Een opzettelijke 503 veroorzaakt retries, een dead letter, een aparte auditmelding en herstel van dezelfde taak. De Dataverse-plug-in weigert ongeldige wijzigingen buiten de app. Zie de afzonderlijke JSON-bewijzen in `evidence/`.
 
-## Bewijsgraad
-Een geslaagde PAC-verpakking bewijst een verpakbaar appbestand, geen foutloze runtime in Studio. Een JSON-structuurcheck bewijst geen geldige connectorbinding. Een lokale test bewijst geen Dataverse-rolbeleid. Een oefen-ROI bewijst geen gerealiseerde besparing. Deze grenzen blijven zichtbaar in README en demo.
+De gebruiker heeft `NATIVE-UAT-20261017014909` in Microsoft Approvals goedgekeurd. De flow heeft de beslissing verwerkt. De eerste ERP-overdracht mislukte doordat een oudere ERP-testflow tijdens de appimport was teruggezet. Na herstel is dezelfde taak gesynchroniseerd. Appimports zijn vervolgens in een apart Canvas-pakket ondergebracht.
+
+## Open en eerlijk afgebakend
+
+- De native Canvas App is op 17 oktober rechtstreeks in Chrome gecontroleerd. De player geeft nog een publicatiefout; Studio weigert het bestand met `ErrOpeningDocument_UnknownError`. Het huidige Canvas-bestand moet worden hersteld en is nog geen werkende native app.
+- Foto-upload/OCR is bewezen in de browserdemo. Een volledig werkende native Canvas-foto-/OCR-koppeling is nog niet aangetoond.
+- De rollen zijn geïnstalleerd, maar niet met twee echte operationele eindgebruikers getest. De native werfleiderrol heeft toegang tot alle FieldOps-werven; teams per werf zijn een vervolgstap.
+- Eén eigen UAT-scenario is geen acceptatie door een echt bouwbedrijf. Er is geen productie-go, productiebelastingtest of werkelijk gerealiseerde ROI.
+
+De eerdere ontbrekende Dataverse-rechten en Developer Plan-licentie zijn opgelost. De publieke site blijft bewust gescheiden van de privé-Microsoft-omgeving.

@@ -1,0 +1,9 @@
+{
+  "artifact": "power-platform/releases/FieldOps360_unmanaged_template.zip",
+  "sha256": "2f82b505128b4eb57968a964a4a335afc131f2863cea90ef650db0bbcebf9661",
+  "signedEndpointsRemoved": 1,
+  "filesChanged": [
+    "Workflows/FieldOps360ERPsynchronisatie-9D2D2C31-CBC9-F111-A05C-70A8A505A30E.json"
+  ],
+  "runtimeEndpointMustBeBoundAfterImport": true
+}

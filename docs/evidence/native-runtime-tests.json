@@ -1,0 +1,45 @@
+{
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "checkedAt": "2026-10-17T01:39:19.806Z",
+  "checks": [
+    {
+      "name": "Native ERP test API returns a real response",
+      "ok": true
+    },
+    {
+      "name": "Native ERP API rejects invalid quantity",
+      "ok": true
+    },
+    {
+      "name": "Native ERP API can produce a real test outage",
+      "ok": true
+    },
+    {
+      "name": "Server rejects missing deviation reason",
+      "ok": true
+    },
+    {
+      "name": "Server rejects unconfirmed submission",
+      "ok": true
+    },
+    {
+      "name": "Human cannot bypass the approval flow",
+      "ok": true
+    },
+    {
+      "name": "Dataverse-triggered ERP synchronization reaches done",
+      "ok": true,
+      "details": "done"
+    },
+    {
+      "name": "ERP receipt persisted in Dataverse",
+      "ok": true
+    },
+    {
+      "name": "Approved delivery quantity is immutable",
+      "ok": true
+    }
+  ],
+  "scope": "Server validation and real cloud ERP integration; this does not prove human Microsoft Approvals or Studio validation.",
+  "deliveryId": "9e599a94-cbc9-f111-a05c-70a8a505a30e"
+}

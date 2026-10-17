@@ -1,44 +1,19 @@
-# Power Platform — bronnen en verificatiestatus
+# Native Power Platform-componenten
 
-De lokale webdemo en de native Microsoft-oplossing zijn twee verschillende runtimes. Zie ../docs/delivery-status.md voor de daadwerkelijke opleverstatus. JSON-bestanden in flows/ zijn **bronontwerpen**, geen claim van geëxporteerde of succesvol draaiende cloud flows.
+De echte installatie staat in **FieldOps 360 DEV**. Zie [omgeving en links](../docs/native-environment.md) en [exacte opleverstatus](../docs/delivery-status.md).
 
-## Dataverse
-`dataverse/schema.json`: zes tabellen; `../scripts/provision-dataverse.mjs`: publisher + FieldOps360 solution + metadata + zes relaties. Owner-team ontwerp in ../docs/security.md. Er is geen automatische privilege-escalatie. Bij 403 `prvCreateEntity`: laat platformbeheer de juiste ontwikkelrol toekennen; herhaal daarna hetzelfde bootstrapcommando. Een makerrol zonder Dataverse-customizationrechten is mogelijk onvoldoende.
+- `native-solution/`: uitgepakte, echte Dataverse-export met tabellen, rollen, plug-in, Canvas App en vier cloud flows.
+- `releases/FieldOps360_unmanaged_template.zip`: deelbaar unmanaged installatiepakket. Gesigneerde ERP-URL's zijn verwijderd; flows zijn uitgeschakeld tot verbindingen en runtime-instellingen in de doelomgeving kloppen.
+- `FieldOps360Native.msapp`: Dataverse-gebonden mobiele app. `canvas-native-layout/` bevat de drie gezaghebbende schermbronnen; `canvas-native/` bevat het volledige PAC-authoringformaat met metadata. De app opent momenteel niet in player of Studio (`ErrOpeningDocument_UnknownError`); dit is een herstelartefact, geen werkende native app. Native mediabinding blijft open.
+- `plugin/`: C#-bron van de synchrone servervalidatie. De export bevat de geregistreerde DLL. De lokale assembliesleutel is niet gepubliceerd.
+- `dataverse/schema.json`: zes tabeldefinities. De echt geïnstalleerde securityrollen staan in de native solution; het oorspronkelijke `security-roles.json` blijft een ontwerpmatrix.
+- `flows/`: de oorspronkelijke drie bronontwerpen. Voor de werkelijk geïnstalleerde vier flows gebruik je `native-solution/Workflows/` en de native runbewijzen.
+- `canvas-legacy/` en `FieldOps360.msapp`: oorspronkelijke collectievariant, behouden als leermateriaal. Deze is geen Dataverse-app.
 
-## Canvas
-`canvas-legacy/`: leesbare Power Fx-schermbronnen voor een mobiele collectievariant (Home, Register, Review), bonzoekfunctie, invoer en validatie. De collectie is alleen geheugen en geen Dataverse. Bonfoto/OCR werkt in de webdemo; de native mediabinding is nog open. Verpakking via `pac canvas pack --sources power-platform/canvas-legacy --msapp power-platform/FieldOps360.msapp`; deze legacy pack/unpack-route is door Microsoft deprecated. Controleer huidige toolondersteuning en open het resultaat altijd eerst in Studio. Een .msapp is geen solution-export.
+## Binding en installatie
 
-Voor de native versie: voeg Werf/Levering/Document-tabellen toe in Studio; map weergavenamen uit de werkelijk gedeployde metadata. Voorbeeld datatoegang (afstemmen op Engelse of Nederlandse schemanaam in de tenant):
+Volg [deployment.md](../docs/deployment.md). Iedere doelomgeving krijgt eigen connectoren en een eigen beperkte runtime-identiteit. De plug-in moet met dat runtime-user-ID worden geconfigureerd. De code voor de live ERP-callback staat alleen in de privé-omgeving; de gedeelde placeholder wordt door `deploy-native-flows.mjs` vervangen.
 
-```powerfx
-// Gallery.Items, delegatievriendelijk zoeken op bonreferentie:
-Filter(fo_deliveries, StartsWith(fo_reference, SearchBon.Text))
-// Alleen een draft schrijven; goedkeuring en statusovergang via serveractie:
-Patch(fo_deliveries, Defaults(fo_deliveries), {
-  fo_name: Upper(Trim(RefInput.Text)),
-  fo_reference: Upper(Trim(RefInput.Text)),
-  fo_supplier: Trim(SupplierInput.Text),
-  fo_quantity: Value(QuantityInput.Text),
-  fo_expected: Value(ExpectedInput.Text),
-  fo_unit: "ton", fo_status: "draft", fo_note: NoteInput.Text
-})
-```
+Gebruik app-only imports bij UI-wijzigingen. Een volledige oudere solution importeren kan anders een nieuwere flow terugzetten. Gebruik Solution Checker en controleer de echte player na publicatie: een geldige zip of een geregistreerde app is onvoldoende runtimebewijs.
 
-Dit is een bindingsvoorbeeld, geen bewijs van een tenantverbinding. Datasource-displaynamen kunnen verschillen. Een verborgen goedkeurknop of clientfilter is nooit voldoende beveiliging. Gebruik de echte Dataverse-form-control/EditForm met required cards na binding en voer SubmitForm alleen uit voor draftvelden; statussen via gecontroleerde serveractie. Registreer App Checker, toestelproef, datasourcebinding en row-ID's als native bewijs.
-
-## Drie flowbronnen
-1. fo_ValidateAndApprove: Dataverse status pending → validatie → onafhankelijke Microsoft Approval → status + integratietaak.
-2. fo_SynchronizeERP: queued taak → levering ophalen → HTTP POST met idempotency key en exponential retry → receipt; catch → dead-letter.
-3. fo_ErrorMonitor: iedere 15 minuten dead jobs → interne auditmelding → dead_notified om herhaalmeldingen te beperken.
-
-Voor activering: huidige connectorparameters door designer laten valideren; approver op basis van werf resolveren en indiener uitsluiten; rejection reason controleren; timeout-vangpad testen; row key en taaklease toevoegen; schrijfbevoegdheid afschermen; ERP-secret als secure input; responsschema en receipt verplicht valideren; fouten na deelupdate reconciliëren. `fo_ErpEndpoint` is geen openbaar lokaal adres: een Microsoft cloud flow bereikt 127.0.0.1 niet. Gebruik een geautoriseerde HTTPS-testservice of goedgekeurde gateway.
-
-De lokale backend implementeert de drie bedrijfsworkflows wel uitvoerbaar en getest. Native flows blijven inactief tot security, verbindingen en tenant-UAT zijn afgerond.
-
-## Microsoft-bronnen (geraadpleegd via Context7)
-- [Canvas CLI en deprecation](https://learn.microsoft.com/power-platform/developer/cli/reference/canvas)
-- [Solutions exporteren](https://learn.microsoft.com/power-platform/alm/export-solutions)
-- [Power Platform Git-integratie](https://learn.microsoft.com/power-platform/alm/git-integration/overview)
-- [Microsoft PowerApps-Tooling](https://github.com/microsoft/PowerApps-Tooling) — MIT, basisfixture voor offline Canvas-verpakking; eigen FieldOps-schermen en businesslogica.
-
-Een managed/unmanaged export wordt pas als volledig releaseartefact opgenomen nadat de componenten in DEV zijn geïnstalleerd en getest. Geen lege zip als complete oplossing presenteren.
+De native ERP is een eigen HTTP-testflow. De publieke GitHub-demo gebruikt een aparte gesimuleerde ERP en echte Tesseract-OCR op het toestel. Er is geen AI Builder-model gepubliceerd en er wordt geen cloud-OCR of commerciële ERP-koppeling voorgesteld als reeds getest.

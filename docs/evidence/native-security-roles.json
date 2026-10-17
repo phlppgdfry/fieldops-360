@@ -1,0 +1,19 @@
+{
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "checkedAt": "2026-10-17T14:14:59.702Z",
+  "roles": [
+    {
+      "name": "FieldOps Chauffeur",
+      "id": "dff9df22-35ca-f111-a05c-70a8a505a30e",
+      "privileges": 12,
+      "scope": "Own deliveries and documents; site lookup read"
+    },
+    {
+      "name": "FieldOps Werfleider",
+      "id": "09ebc487-35ca-f111-a05c-70a8a505a30e",
+      "privileges": 11,
+      "scope": "All FieldOps sites; operational reviewer role; decisions remain controlled by flow"
+    }
+  ],
+  "assignedToHumans": false
+}

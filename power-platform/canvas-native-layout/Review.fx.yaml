@@ -1,0 +1,68 @@
+Review As screen:
+    OnVisible: =Reset(ConfirmReview)
+
+    HeaderReview As label:
+        Text: =varDelivery.Bonnummer
+        X: =20
+        Y: =24
+        Width: =350
+        Height: =50
+        Size: =24
+        FontWeight: =FontWeight.Semibold
+
+    DetailsReview As label:
+        Text: =varDelivery.Leverancier & Char(10) & Text(varDelivery.Geleverd) & " " & varDelivery.Eenheid & " geleverd / " & Text(varDelivery.Besteld) & " besteld" & Char(10) & varDelivery.Afwijkingsreden
+        X: =20
+        Y: =100
+        Width: =350
+        Height: =200
+        Size: =16
+
+    ReviewStatus As label:
+        Text: =Switch(varDelivery.Processtatus,"draft","Concept","pending","Ter controle","approved","Goedgekeurd","rejected","Afgewezen","synced","Gesynchroniseerd",varDelivery.Processtatus)
+        X: =20
+        Y: =320
+        Width: =350
+        Height: =45
+        Size: =16
+        Color: =RGBA(8,127,112,1)
+        Fill: =RGBA(235,247,242,1)
+
+    ConfirmReview As checkbox:
+        Text: ="Ik heb de gegevens gecontroleerd"
+        Default: =false
+        Visible: =varDelivery.Processtatus="draft" || varDelivery.Processtatus="rejected"
+        X: =20
+        Y: =410
+        Width: =350
+        Height: =70
+        Size: =14
+
+    SubmitReview As button:
+        Text: ="Indienen ter goedkeuring"
+        Visible: =varDelivery.Processtatus="draft" || varDelivery.Processtatus="rejected"
+        DisplayMode: =If(ConfirmReview.Value,DisplayMode.Edit,DisplayMode.Disabled)
+        X: =20
+        Y: =510
+        Width: =350
+        Height: =50
+        Size: =14
+        Fill: =RGBA(8,127,112,1)
+        OnSelect: =IfError(Set(varDelivery,Patch(fo_deliveries,varDelivery,{'Menselijk bevestigd':true,Processtatus:"pending"})); Notify("Ingediend. Een onafhankelijke werfleider beoordeelt de levering.",NotificationType.Success); Refresh(fo_deliveries),Notify("Indienen mislukt. Controleer je gegevens en rechten.",NotificationType.Error))
+
+    ERPReview As label:
+        Text: =If(IsBlank(varDelivery.'ERP ontvangst'),"", "ERP ontvangst: " & varDelivery.'ERP ontvangst')
+        X: =20
+        Y: =600
+        Width: =350
+        Height: =60
+        Size: =13
+
+    BackReview As button:
+        Text: ="Terug naar leveringen"
+        X: =20
+        Y: =720
+        Width: =350
+        Height: =48
+        Size: =13
+        OnSelect: =Refresh(fo_deliveries); Navigate(Home)

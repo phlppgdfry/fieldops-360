@@ -126,3 +126,77 @@ test("bezoekers hebben eigen opslag en tekst wordt niet als AI voorgesteld", asy
   await page.getByRole("button", { name: "Nieuwe oefensessie" }).click();
   await expect(page.getByText("Deze publieke oefenomgeving")).toBeVisible();
 });
+test("werffilter, paginering, CSV en toegankelijke rondleiding werken op desktop en mobiel", async ({
+  page,
+}, testInfo) => {
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.goto("./");
+  await page.getByRole("button", { name: "Beheerder Bekijk" }).click();
+  await expect(
+    page
+      .getByRole("region", { name: "Leveringenoverzicht" })
+      .locator("tbody tr"),
+  ).toHaveCount(6);
+  await page.getByRole("button", { name: "Volgende pagina" }).click();
+  await expect(
+    page
+      .getByRole("region", { name: "Leveringenoverzicht" })
+      .locator("tbody tr"),
+  ).toHaveCount(2);
+  await page.getByLabel("Filter op werf").selectOption("s1");
+  const rows = page
+    .getByRole("region", { name: "Leveringenoverzicht" })
+    .locator("tbody tr");
+  await expect(rows).toHaveCount(4);
+  for (const row of await rows.all())
+    await expect(row).toContainText("Kanaalzone Brugge");
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Exporteer CSV" }).click();
+  const file = await download;
+  const stream = await file.createReadStream();
+  const parts = [];
+  for await (const part of stream) parts.push(part);
+  const csv = Buffer.concat(parts).toString("utf8");
+  expect(csv).toContain("Kanaalzone Brugge");
+  expect(csv).not.toContain("N34 Herinrichting");
+  expect(csv.split("\r\n")).toHaveLength(5);
+  await page.getByLabel("Filter op werf").selectOption("");
+  await page.getByRole("button", { name: "Rondleiding", exact: true }).click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "Een levering registreren",
+  );
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "Van bon naar gecontroleerde data",
+  );
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.screenshot({
+    path: testInfo.outputPath("dashboard-v2-desktop.png"),
+    fullPage: true,
+  });
+  await page
+    .locator("aside .brand span")
+    .screenshot({ path: ".data/canvas-brand.png" });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(
+    page.getByRole("button", { name: "Nieuwe levering", exact: true }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.getByRole("button", { name: "Rondleiding", exact: true }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.screenshot({
+    path: testInfo.outputPath("tour-v2-mobile.png"),
+    animations: "disabled",
+  });
+  await page.getByRole("button", { name: "Rondleiding sluiten" }).click();
+  await page.getByRole("button", { name: "Menu", exact: true }).click();
+  await page.getByRole("button", { name: "Leveringen", exact: true }).click();
+  await expect(page.getByLabel("Filter op werf")).toBeVisible();
+  expect(errors).toEqual([]);
+});

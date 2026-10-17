@@ -1,0 +1,155 @@
+Register As screen:
+    HeaderRegister As label:
+        Text: ="Nieuwe levering"
+        X: =20
+        Y: =20
+        Width: =350
+        Height: =50
+        Size: =24
+        FontWeight: =FontWeight.Semibold
+
+    ReferenceLabel As label:
+        Text: ="Bonnummer"
+        X: =20
+        Y: =80
+        Width: =350
+        Height: =24
+        Size: =11
+
+    RefInput As text:
+        Default: =""
+        HintText: ="Bijvoorbeeld LB-2026-1050"
+        AccessibleLabel: ="Bonnummer"
+        X: =20
+        Y: =108
+        Width: =350
+        Height: =42
+        Size: =13
+
+    SupplierLabel As label:
+        Text: ="Leverancier"
+        X: =20
+        Y: =160
+        Width: =350
+        Height: =24
+        Size: =11
+
+    SupplierInput As text:
+        Default: =""
+        HintText: ="Naam leverancier"
+        AccessibleLabel: ="Leverancier"
+        X: =20
+        Y: =188
+        Width: =350
+        Height: =42
+        Size: =13
+
+    SiteLabel As label:
+        Text: ="Werf"
+        X: =20
+        Y: =240
+        Width: =350
+        Height: =24
+        Size: =11
+
+    SiteInput As dropdown:
+        Items: =Sort(fo_sites,Naam,SortOrder.Ascending)
+        Value: ="Naam"
+        AccessibleLabel: ="Werf"
+        X: =20
+        Y: =268
+        Width: =350
+        Height: =42
+        Size: =13
+
+    QuantityLabel As label:
+        Text: ="Geleverd"
+        X: =20
+        Y: =320
+        Width: =160
+        Height: =24
+        Size: =11
+
+    ExpectedLabel As label:
+        Text: ="Besteld"
+        X: =205
+        Y: =320
+        Width: =165
+        Height: =24
+        Size: =11
+
+    QuantityInput As text:
+        Default: =""
+        HintText: ="18"
+        Format: =TextFormat.Number
+        AccessibleLabel: ="Geleverde hoeveelheid"
+        X: =20
+        Y: =348
+        Width: =165
+        Height: =42
+        Size: =13
+
+    ExpectedInput As text:
+        Default: ="24"
+        Format: =TextFormat.Number
+        AccessibleLabel: ="Bestelde hoeveelheid"
+        X: =205
+        Y: =348
+        Width: =165
+        Height: =42
+        Size: =13
+
+    UnitLabel As label:
+        Text: ="Eenheid"
+        X: =20
+        Y: =400
+        Width: =350
+        Height: =24
+        Size: =11
+
+    UnitInput As dropdown:
+        Items: =["ton","m³","kg","stuks"]
+        AccessibleLabel: ="Eenheid"
+        X: =20
+        Y: =428
+        Width: =350
+        Height: =42
+        Size: =13
+
+    NoteLabel As label:
+        Text: ="Afwijking of opmerking"
+        X: =20
+        Y: =480
+        Width: =350
+        Height: =24
+        Size: =11
+
+    NoteInput As text:
+        Default: =""
+        HintText: ="Verplicht bij een afwijking boven 5%"
+        Mode: =TextMode.MultiLine
+        AccessibleLabel: ="Afwijking of opmerking"
+        X: =20
+        Y: =508
+        Width: =350
+        Height: =90
+        Size: =13
+
+    SaveDelivery As button:
+        Text: ="Concept opslaan"
+        X: =20
+        Y: =640
+        Width: =350
+        Height: =48
+        Fill: =RGBA(8,127,112,1)
+        Size: =14
+        OnSelect: =If(IsBlank(Trim(RefInput.Text)) || IsBlank(Trim(SupplierInput.Text)) || IsBlank(SiteInput.Selected) || !IsNumeric(QuantityInput.Text) || !IsNumeric(ExpectedInput.Text) || Value(QuantityInput.Text)<=0 || Value(ExpectedInput.Text)<=0, Notify("Vul bon, leverancier, werf en positieve hoeveelheden in",NotificationType.Error), Abs(Value(QuantityInput.Text)-Value(ExpectedInput.Text))/Value(ExpectedInput.Text)>0.05 && IsBlank(Trim(NoteInput.Text)), Notify("Motiveer de afwijking",NotificationType.Error), IfError(Set(varDelivery,Patch(fo_deliveries,Defaults(fo_deliveries),{Naam:Upper(Trim(RefInput.Text)),Bonnummer:Upper(Trim(RefInput.Text)),Leverancier:Trim(SupplierInput.Text),site:SiteInput.Selected,Geleverd:Value(QuantityInput.Text),Besteld:Value(ExpectedInput.Text),Eenheid:UnitInput.Selected.Value,Afwijkingsreden:Trim(NoteInput.Text),Processtatus:"draft"})); Notify("Concept opgeslagen. Controleer de gegevens voordat je indient.",NotificationType.Success); Reset(RefInput); Reset(SupplierInput); Reset(QuantityInput); Reset(NoteInput); Navigate(Review), Notify("Opslaan mislukt. Controleer je gegevens en bonnummer.",NotificationType.Error)))
+
+    CancelRegister As button:
+        Text: ="Terug"
+        X: =20
+        Y: =710
+        Width: =350
+        Height: =44
+        Size: =13
+        OnSelect: =Navigate(Home)

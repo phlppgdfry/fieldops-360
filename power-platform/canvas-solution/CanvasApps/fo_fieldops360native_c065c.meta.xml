@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>fo_fieldops360native_c065c</Name>
+  <AppVersion>2026-10-17T03:15:00Z</AppVersion>
+  <Status>Ready</Status>
+  <CreatedByClientVersion>3.23093.15.0</CreatedByClientVersion>
+  <MinClientVersion>3.23093.15.0</MinClientVersion>
+  <Tags>{"primaryDeviceWidth": "390", "primaryDeviceHeight": "844", "supportsPortrait": "true", "supportsLandscape": "false", "primaryFormFactor": "Phone"}</Tags>
+  <IsCdsUpgraded>0</IsCdsUpgraded>
+  <GalleryItemId xsi:nil="true" />
+  <BackgroundColor>rgba(0, 176, 240, 1)</BackgroundColor>
+  <DisplayName>FieldOps 360</DisplayName>
+  <Description>Mobiele leveringregistratie en controle met Dataverse. Portfolio ontwikkelomgeving.</Description>
+  <CommitMessage xsi:nil="true" />
+  <Publisher>FieldOps</Publisher>
+  <AuthorizationReferences>[]</AuthorizationReferences>
+  <ConnectionReferences>{}</ConnectionReferences>
+  <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified"}},"dataSources":{"fo_deliveries":{"entitySetName":"fo_deliveries","logicalName":"fo_delivery"},"fo_sites":{"entitySetName":"fo_sites","logicalName":"fo_site"},"fo_documents":{"entitySetName":"fo_documents","logicalName":"fo_document"},"fo_employees":{"entitySetName":"fo_employees","logicalName":"fo_employee"}}}}</DatabaseReferences>
+  <AppComponents>[]</AppComponents>
+  <AppComponentDependencies>[]</AppComponentDependencies>
+  <CanConsumeAppPass>1</CanConsumeAppPass>
+  <CanvasAppType>0</CanvasAppType>
+  <BypassConsent>0</BypassConsent>
+  <AdminControlBypassConsent>0</AdminControlBypassConsent>
+  <EmbeddedApp xsi:nil="true" />
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <CdsDependencies>{"cdsdependencies": [{"logicalname": "fo_delivery", "componenttype": 1, "componenttypeplatformname": "Entity"}, {"logicalname": "fo_site", "componenttype": 1, "componenttypeplatformname": "Entity"}, {"logicalname": "fo_document", "componenttype": 1, "componenttypeplatformname": "Entity"}, {"logicalname": "fo_employee", "componenttype": 1, "componenttypeplatformname": "Entity"}]}</CdsDependencies>
+  <IsCustomizable>1</IsCustomizable>
+  <DocumentUri>/CanvasApps/fo_fieldops360native_c065c_DocumentUri.msapp</DocumentUri>
+<BackgroundImageUri>/CanvasApps/fo_fieldops360native_c065c_BackgroundImageUri</BackgroundImageUri></CanvasApp>

@@ -32,7 +32,7 @@
         "DisplayName": {
           "LocalizedLabels": [
             {
-              "Label": "Werf",
+              "Label": "Naam",
               "LanguageCode": 1033
             }
           ]
@@ -100,7 +100,7 @@
         "DisplayName": {
           "LocalizedLabels": [
             {
-              "Label": "Medewerker",
+              "Label": "Naam",
               "LanguageCode": 1033
             }
           ]
@@ -187,7 +187,7 @@
         "DisplayName": {
           "LocalizedLabels": [
             {
-              "Label": "Levering",
+              "Label": "Naam",
               "LanguageCode": 1033
             }
           ]
@@ -423,7 +423,7 @@
         "DisplayName": {
           "LocalizedLabels": [
             {
-              "Label": "Document",
+              "Label": "Naam",
               "LanguageCode": 1033
             }
           ]
@@ -529,7 +529,7 @@
         "DisplayName": {
           "LocalizedLabels": [
             {
-              "Label": "Integratietaak",
+              "Label": "Naam",
               "LanguageCode": 1033
             }
           ]
@@ -635,7 +635,7 @@
         "DisplayName": {
           "LocalizedLabels": [
             {
-              "Label": "Auditgebeurtenis",
+              "Label": "Naam",
               "LanguageCode": 1033
             }
           ]

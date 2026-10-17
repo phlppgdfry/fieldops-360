@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   LayoutDashboard,
   Truck,
@@ -12,12 +12,16 @@ import {
   ChevronRight,
   X,
   Menu,
-  RefreshCw,
+  Play,
+  AlertTriangle,
+  ArrowRight,
   Check,
   ArrowUpRight,
 } from "lucide-react";
 import { api, post, isBrowserDemo, resetBrowserDemo } from "./api";
-import { labels } from "./constants";
+import DeliveryList from "./components/DeliveryList";
+import Tour from "./components/Tour";
+import { auditLabel } from "./constants";
 import DeliveryForm from "./components/DeliveryForm";
 import Detail from "./components/Detail";
 import DeliveryTable from "./components/DeliveryTable";
@@ -34,11 +38,11 @@ const menu = [
 export default function App() {
   const [state, setState] = useState(null),
     [page, setPage] = useState("Overzicht"),
-    [query, setQuery] = useState(""),
-    [status, setStatus] = useState(""),
+    [tour, setTour] = useState(false),
     [error, setError] = useState(""),
     [modal, setModal] = useState(null),
     [mobile, setMobile] = useState(false);
+  const closeTour = useCallback(() => setTour(false), []);
   async function refresh() {
     try {
       setState(await api("/state"));
@@ -104,14 +108,6 @@ export default function App() {
         )}
       </main>
     );
-  const rows = state.deliveries.filter(
-    (d) =>
-      `${d.reference} ${d.supplier} ${d.site_name}`
-        .toLowerCase()
-        .includes(query.toLowerCase()) &&
-      (!status || d.status === status) &&
-      (page !== "Goedkeuringen" || d.status === "pending"),
-  );
   const pending = state.deliveries.filter((d) => d.status === "pending").length;
   return (
     <div className="shell">
@@ -197,10 +193,16 @@ export default function App() {
                   : "FieldOps 360 · Digital Operations Transformation"}
               </p>
             </div>
-            <button className="primary" onClick={() => setModal("new")}>
-              <Plus size={18} />
-              Nieuwe levering
-            </button>
+            <div className="header-actions">
+              <button onClick={() => setTour(true)}>
+                <Play size={15} />
+                Rondleiding
+              </button>
+              <button className="primary" onClick={() => setModal("new")}>
+                <Plus size={18} />
+                Nieuwe levering
+              </button>
+            </div>
           </header>
           {error && (
             <div role="alert" className="error">
@@ -280,53 +282,26 @@ export default function App() {
                   ))}
                 </div>
               )}
-              <section className="deliveries">
-                <div className="section-title">
-                  <div>
-                    <h2>
-                      {page === "Goedkeuringen"
-                        ? "Te beoordelen leveringen"
-                        : "Recente leveringen"}
-                    </h2>
-                    <p>Een actueel overzicht van de operatie.</p>
-                  </div>
-                  <button
-                    className="icon-button"
-                    aria-label="Vernieuwen"
-                    onClick={refresh}
-                  >
-                    <RefreshCw size={17} />
+              {page === "Overzicht" && pending > 0 && (
+                <div className="attention">
+                  <span>
+                    <AlertTriangle size={18} />
+                    {pending} leveringen wachten op controle
+                  </span>
+                  <button onClick={() => setPage("Goedkeuringen")}>
+                    Bekijk goedkeuringen
+                    <ArrowRight size={16} />
                   </button>
                 </div>
-                <div className="filters">
-                  <div className="search">
-                    <Search size={17} />
-                    <input
-                      aria-label="Zoek leveringen"
-                      placeholder="Zoek referentie, werf of leverancier…"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                    />
-                  </div>
-                  <select
-                    aria-label="Filter op status"
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                  >
-                    <option value="">Alle statussen</option>
-                    {Object.entries(labels).map(([k, v]) => (
-                      <option key={k} value={k}>
-                        {v}
-                      </option>
-                    ))}
-                  </select>
-                  <span>{rows.length} resultaten</span>
-                </div>
-                <DeliveryTable
-                  rows={page === "Overzicht" ? rows.slice(0, 6) : rows}
-                  onSelect={setModal}
-                />
-              </section>
+              )}
+              <DeliveryList
+                key={page}
+                deliveries={state.deliveries}
+                sites={state.sites}
+                approvals={page === "Goedkeuringen"}
+                onSelect={setModal}
+                refresh={refresh}
+              />
               {page === "Overzicht" && (
                 <div className="bottom-grid">
                   <section>
@@ -374,10 +349,7 @@ export default function App() {
                           <i />
                           <section>
                             <strong>
-                              {a.reference} ·{" "}
-                              {a.event === "seed"
-                                ? "Dossier aangemaakt"
-                                : a.event}
+                              {a.reference} · {auditLabel(a.event)}
                             </strong>
                             <small>
                               {a.actor} ·{" "}
@@ -403,6 +375,15 @@ export default function App() {
           </div>
         </div>
       </main>
+      {tour && (
+        <Tour
+          onClose={closeTour}
+          onNavigate={(target) => {
+            setPage(target);
+            setTour(false);
+          }}
+        />
+      )}
       {modal === "new" && (
         <DeliveryForm
           state={state}

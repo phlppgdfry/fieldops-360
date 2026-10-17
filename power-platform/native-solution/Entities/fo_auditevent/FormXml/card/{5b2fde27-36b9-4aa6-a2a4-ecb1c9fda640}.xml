@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{5b2fde27-36b9-4aa6-a2a4-ecb1c9fda640}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="general" verticallayout="true" id="{0861bb9a-57b5-4062-8fee-d43ebb3a69ba}" IsUserDefined="0">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="25%">
+              <sections>
+                <section name="ColorStrip" showlabel="false" showbar="false" columns="1" IsUserDefined="0" id="{c9294d50-83fb-4c09-a642-75e6baee6725}">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                </section>
+              </sections>
+            </column>
+            <column width="75%">
+              <sections>
+                <section name="CardHeader" showlabel="false" showbar="false" columns="111" id="{8e229017-b022-43ee-b460-b7241bf9b06a}" IsUserDefined="0">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{c2464ac4-012f-48c7-9d88-8bd6417971d9}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Reden van status" languagecode="1033" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="false" />
+                      </cell>
+                      <cell id="{695b0fc3-d977-484c-a0ce-3a1aeca1413c}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{1cc789db-8310-4de0-a90d-f61cf6e012a7}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="CardDetails" showlabel="false" showbar="false" columns="1" id="{4c18937e-7eca-47bd-b4f9-52b4d2c9bbb3}" IsUserDefined="0">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a9846a66-a12f-4090-a14f-942da9f678cd}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Auditgebeurtenis" languagecode="1033" />
+                        </labels>
+                        <control id="fo_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="fo_name" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="CardFooter" showlabel="false" columns="1111" showbar="false" id="{4ae41129-2571-4336-b244-72ae766d0d26}" IsUserDefined="0">
+                  <labels>
+                    <label description="" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{2837c1b2-f2d1-4902-a0e6-c4265082fb23}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Eigenaar" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                      <cell id="{7c3df015-c589-480b-93b3-9ed973b57fca}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Gemaakt op" languagecode="1033" />
+                        </labels>
+                        <control id="createdon" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdon" disabled="false" />
+                      </cell>
+                      <cell id="{1eb0d1c3-04ab-40d3-b50d-202fed376e4d}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{93a3619f-46da-4f3a-a82a-3c64a8c6ed0f}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Informatie" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Een kaartformulier voor deze entiteit." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,29 @@
+{
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "checkedAt": "2026-10-17T15:11:22.926Z",
+  "checks": [
+    {
+      "name": "Real HTTP outage is retried and becomes a notified dead letter",
+      "ok": true
+    },
+    {
+      "name": "Separate native error flow persists an internal alert",
+      "ok": true
+    },
+    {
+      "name": "Failed ERP transfer never marks delivery as synchronized",
+      "ok": true
+    },
+    {
+      "name": "Restart of the same integration job recovers successfully",
+      "ok": true
+    },
+    {
+      "name": "Recovery saves one deterministic ERP receipt",
+      "ok": true
+    }
+  ],
+  "scope": "Controlled service setup tests ERP retries, dead letter, audit error alert and recovery; it is not human approval UAT.",
+  "deliveryId": "9adb8103-3dca-f111-a05c-70a8a505a30e",
+  "jobId": "9edb8103-3dca-f111-a05c-70a8a505a30e"
+}

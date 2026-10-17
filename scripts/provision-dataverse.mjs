@@ -91,7 +91,7 @@ const schema = tables.map(([name, singular, plural, attrs]) => ({
   IsAuditEnabled: { Value: true },
   Attributes: [
     {
-      ...str("fo_name", singular),
+      ...str("fo_name", "Naam"),
       IsPrimaryName: true,
       RequiredLevel: { Value: "ApplicationRequired" },
     },
@@ -139,6 +139,8 @@ if (!solution) {
   solution = s.solutionid;
 }
 const report = {
+  environment: process.env.POWER_PLATFORM_ENVIRONMENT_ID,
+  url: process.env.DATAVERSE_URL,
   checkedAt: new Date().toISOString(),
   solution: "FieldOps360",
   tables: [],

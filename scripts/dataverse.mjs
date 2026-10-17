@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 export function client(org = process.env.DATAVERSE_URL) {
   if (!org) throw Error("DATAVERSE_URL vereist");
   const accounts = JSON.parse(
-    execFileSync("az", ["account", "list", "-o", "json"], { encoding: "utf8" }),
+    execFileSync("az", ["account", "list", "--all", "-o", "json"], { encoding: "utf8" }),
   );
   const account = accounts.find(
     (a) => a.user?.name === process.env.DATAVERSE_USER,
@@ -31,7 +31,7 @@ export function client(org = process.env.DATAVERSE_URL) {
       throw Error(`Dataverse ${r.status}: ${(await r.text()).slice(0, 1500)}`);
     return r.status === 204
       ? { id: r.headers.get("odata-entityid") }
-      : r.json();
+      : r.headers.get("content-type")?.includes("json") ? r.json() : r.text();
   };
 }
 if (process.argv[2] === "probe") {

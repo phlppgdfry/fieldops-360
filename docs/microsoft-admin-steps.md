@@ -1,6 +1,6 @@
 # Dataverse-rechten laten toekennen
 
-De bootstrap stopt met HTTP 403 voor `prvCreateEntity`. Dit is een ontbrekend Dataverse-recht; GitHub-hosting lost dat niet op. De installatie vraagt geen wijziging aan organisatiebrede adminrollen.
+Statusupdate: de eerdere HTTP 403 voor `prvCreateEntity` is opgelost. Na expliciete toestemming is de eigen gebruiker via de officiële self-elevation-API Dataverse System Administrator geworden, uitsluitend in de standaardomgeving. De onderstaande handmatige route blijft als naslag staan. Die licentieblokkade is inmiddels opgelost via het gratis Developer Plan en de eigen omgeving FieldOps 360 DEV. Zie [opleverstatus](delivery-status.md).
 
 Een reeds bevoegde beheerder voert dit uit:
 

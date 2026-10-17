@@ -1,0 +1,19 @@
+{
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "assembly": "FieldOps360.Validation",
+  "checkedAt": "2026-10-17T14:49:05.442Z",
+  "steps": [
+    {
+      "message": "Create",
+      "id": "71b02b6d-cbc9-f111-a05c-70a8a505a30e",
+      "synchronous": true,
+      "stage": "PreOperation"
+    },
+    {
+      "message": "Update",
+      "id": "74b02b6d-cbc9-f111-a05c-70a8a505a30e",
+      "synchronous": true,
+      "stage": "PreOperation"
+    }
+  ]
+}

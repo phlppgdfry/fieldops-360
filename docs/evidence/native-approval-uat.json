@@ -1,0 +1,12 @@
+{
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "reference": "NATIVE-UAT-20261017014909",
+  "deliveryId": "aad793f0-ccc9-f111-a05c-70a8a505a30e",
+  "createdAt": "2026-10-17T01:49:10.650Z",
+  "scope": "Test dossier created by the limited runtime principal; actual human approval is still required.",
+  "lastCheckedAt": "2026-10-17T14:32:22.517Z",
+  "deliveryStatus": "synced",
+  "erpReceipt": "ERP-NATIVE-aad793f0-ccc9-f111-a05c-70a8a505a30e",
+  "humanReportedApproval": true,
+  "initialTransferRequiredRecovery": true
+}

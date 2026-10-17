@@ -1,0 +1,46 @@
+{
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "url": "https://fieldops360dev.crm17.dynamics.com",
+  "checkedAt": "2026-10-17T14:33:21.743Z",
+  "solution": "FieldOps360",
+  "tables": [
+    {
+      "name": "fo_site",
+      "id": "3fef7754-aae0-4d88-a10e-bca13eafa0fc",
+      "entitySet": "fo_sites"
+    },
+    {
+      "name": "fo_employee",
+      "id": "656ef259-3007-4c76-9c78-04a88d961926",
+      "entitySet": "fo_employees"
+    },
+    {
+      "name": "fo_delivery",
+      "id": "08fecd69-b960-44a4-a7dd-f23055d9c170",
+      "entitySet": "fo_deliveries"
+    },
+    {
+      "name": "fo_document",
+      "id": "afaf3437-a8ce-4745-9dca-0f96ca7a9a52",
+      "entitySet": "fo_documents"
+    },
+    {
+      "name": "fo_integrationjob",
+      "id": "320c5d76-2792-423f-a32c-97d80efa2d81",
+      "entitySet": "fo_integrationjobs"
+    },
+    {
+      "name": "fo_auditevent",
+      "id": "91b3afa5-d516-43df-885d-810e13a59edd",
+      "entitySet": "fo_auditevents"
+    }
+  ],
+  "relationships": [
+    "fo_site_fo_delivery_fo_siteid",
+    "fo_employee_fo_delivery_fo_employeeid",
+    "fo_delivery_fo_document_fo_deliveryid",
+    "fo_delivery_fo_integrationjob_fo_deliveryid",
+    "fo_delivery_fo_auditevent_fo_deliveryid",
+    "fo_site_fo_employee_fo_siteid"
+  ]
+}

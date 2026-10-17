@@ -8,7 +8,7 @@ Onafhankelijke portfolio-case voor een fictieve West-Vlaamse bouw- en transportg
 
 **Online demo:** [Open FieldOps 360](https://phlppgdfry.github.io/fieldops-360/) · [Case en video](https://phlppgdfry.github.io/fieldops-360/case/).
 
-**Status:** de publieke GitHub Pages-demo werkt volledig in de browser met echte Tesseract.js-OCR en lokale oefenopslag; ERP-overdracht is expliciet gesimuleerd. De aparte Node-demo gebruikt een echte lokale ERP-test-API. De native Microsoft-installatie is nog niet afgerond: Dataverse weigert tabelcreatie met `prvCreateEntity`; Studio-binding, echte cloud-flowruns en solution-export blijven open. [Exacte status en bewijs](docs/delivery-status.md).
+**Status:** de publieke browserdemo heeft echte OCR, werffilters, CSV-export, paginering en een rondleiding. Daarnaast is **FieldOps 360 DEV** echt in Microsoft aangemaakt: zes tabellen, drie rollen, servervalidatie en vier cloud flows. De native ERP-, storings- en hersteltests zijn geslaagd. De gebruiker heeft een echte Microsoft-goedkeuring gegeven; die levering heeft na herstel een ERP-testontvangst in Dataverse gekregen. De Canvas App is geregistreerd en gepubliceerd; de player geeft een publicatiefout en Studio opent het bestand niet (`ErrOpeningDocument_UnknownError`). Herstel van het Canvas-bestand en native fotobinding blijven open. [Exacte status en bewijs](docs/delivery-status.md).
 
 ## Online proberen
 
@@ -61,7 +61,8 @@ Windows/Linux: de CRUD-demo werkt; voor beeld-OCR is de optionele Azure-adapter 
 | Processen | [AS-IS / TO-BE BPMN](docs/processes/) |
 | Architectuur | [Datamodel, state machine en ontwerpbesluiten](docs/architecture.md) |
 | Power Apps / flows / Dataverse | [Native bronnen en status](power-platform/README.md) |
-| Canvas-appbestand | [FieldOps360.msapp — Studio-validatie vereist](power-platform/FieldOps360.msapp) |
+| Native Canvas App | [FieldOps360Native.msapp](power-platform/FieldOps360Native.msapp) · [schermbronnen](power-platform/canvas-native-layout) |
+| Echte Microsoft-installatie | [Omgeving en bewijs](docs/native-environment.md) · [solutiontemplate](power-platform/releases/FieldOps360_unmanaged_template.zip) |
 | Security | [Rechten, privacy en productiegrenzen](docs/security.md) |
 | Testen en acceptatie | [Testplan en UAT](docs/testing-uat.md) · [Testcode](tests/) |
 | Gebruikers | [Handleiding](docs/user-guide.md) |
@@ -72,11 +73,11 @@ Windows/Linux: de CRUD-demo werkt; voor beeld-OCR is de optionele Azure-adapter 
 
 ## Microsoft-omgeving
 
-De bestaande tenantverbinding is gecontroleerd. Een eigen FieldOps360-solution en publisher zijn aangemaakt, maar tabelcreatie wordt geweigerd met `prvCreateEntity`. De gebruiker laat deze rechten toekennen. `scripts/provision-dataverse.mjs` bevat het vervolg voor zes tabellen en relaties. Cloud flow-definities in `power-platform/flows` zijn bronontwerpen; connectorbinding, securityregels en werkelijke cloud runs zijn nog niet gevalideerd. Een complete exportbare solution-zip volgt pas na die native installatie. De lokale webapp is geen vervanging voor een echt Dataverse-/Power Apps-runtimebewijs.
+De aparte [Microsoft-ontwikkelomgeving](docs/native-environment.md) gebruikt het gratis Developer Plan. De echte export staat als [unmanaged deploymenttemplate](power-platform/releases/FieldOps360_unmanaged_template.zip) en als [uitgepakte solution](power-platform/native-solution) in de repository. Het gedeelde pakket bevat geen gesigneerde ERP-endpoint-URL; verbindingen, runtime-ID en flows moeten na import per omgeving worden ingesteld. De native app heeft echte Dataverse-bronnen en mobiele registratie-/bevestigingsschermen. Echte cloud runs en serverchecks staan in `docs/evidence/native-*.json`.
 
 ## Verificatie
 
-13 unit/API-tests en de browserroute registratie → goedkeuring → ERP zijn geslaagd. PNG-OCR herkent bonnummer, leverancier, 18 ton en eenheid correct; menselijke bevestiging blokkeert vroegtijdige indiening. Twee BPMN-bestanden zijn gecontroleerd op XML, referenties en diagramdekking. De `.msapp` is via PAC verpakt én terug uitgepakt. Geen eindgebruikers-UAT, productiebelastingtest of native Microsoft-runtimegoedkeuring is verzonnen.
+14 unit/API-tests en de browserroute registratie → goedkeuring → ERP zijn geslaagd. PNG-OCR herkent bonnummer, leverancier, 18 ton en eenheid correct; menselijke bevestiging blokkeert vroegtijdige indiening. Twee BPMN-bestanden zijn gecontroleerd op XML, referenties en diagramdekking. De `.msapp` is via PAC verpakt én terug uitgepakt. De eigen gebruiker heeft één native goedkeuringsscenario uitgevoerd; dit is geen ondertekende bedrijfs-UAT of productiebelastingtest.
 
 Alle bedrijfsgegevens zijn fictief. ROI-bedragen zijn aannames, geen gerealiseerde besparingen of Microsoft-prijsofferte. Geen affiliatie met Nuvex Systems of genoemde leveranciers.
 

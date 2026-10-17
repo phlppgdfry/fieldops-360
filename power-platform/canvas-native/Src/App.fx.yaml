@@ -1,0 +1,2 @@
+App As appinfo:
+    OnStart: =Refresh(fo_deliveries); Refresh(fo_sites)

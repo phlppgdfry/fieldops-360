@@ -1,0 +1,88 @@
+Home As screen:
+    Fill: =RGBA(255,255,255,1)
+
+    TitleHome As label:
+        Text: ="FieldOps 360"
+        X: =0
+        Y: =0
+        Width: =390
+        Height: =95
+        PaddingLeft: =22
+        Size: =25
+        FontWeight: =FontWeight.Semibold
+        Color: =RGBA(255,255,255,1)
+        Fill: =RGBA(20,43,50,1)
+
+    SubHome As label:
+        Text: ="Leveringen op jouw werf"
+        X: =20
+        Y: =108
+        Width: =350
+        Size: =16
+        FontWeight: =FontWeight.Semibold
+
+    SearchBon As text:
+        Default: =""
+        HintText: ="Zoek bonnummer of leverancier"
+        AccessibleLabel: ="Zoek leveringen"
+        X: =20
+        Y: =165
+        Width: =350
+        Height: =46
+        Size: =13
+
+    NewDelivery As button:
+        Text: ="Nieuwe levering"
+        OnSelect: =Navigate(Register)
+        X: =20
+        Y: =228
+        Width: =350
+        Height: =48
+        Fill: =RGBA(8,127,112,1)
+        Size: =14
+
+    DeliveriesGallery As gallery.galleryVertical:
+        Items: =SortByColumns(Filter(fo_deliveries, IsBlank(SearchBon.Text) || StartsWith(Bonnummer,SearchBon.Text) || StartsWith(Leverancier,SearchBon.Text)),"createdon",SortOrder.Descending)
+        X: =20
+        Y: =300
+        Width: =350
+        Height: =450
+        TemplateSize: =98
+
+        BonTitle As label:
+            Text: =ThisItem.Bonnummer
+            X: =4
+            Y: =5
+            Width: =330
+            Height: =36
+            Size: =15
+            FontWeight: =FontWeight.Semibold
+            OnSelect: =Set(varDelivery,ThisItem); Navigate(Review)
+
+        BonSupplier As label:
+            Text: =ThisItem.Leverancier & " · " & Text(ThisItem.Geleverd) & " " & ThisItem.Eenheid
+            X: =4
+            Y: =35
+            Width: =330
+            Height: =26
+            Size: =12
+            OnSelect: =Set(varDelivery,ThisItem); Navigate(Review)
+
+        BonState As label:
+            Text: =Switch(ThisItem.Processtatus,"draft","Concept","pending","Ter controle","approved","Goedgekeurd","rejected","Afgewezen","synced","Gesynchroniseerd",ThisItem.Processtatus)
+            X: =4
+            Y: =62
+            Width: =330
+            Height: =27
+            Size: =11
+            Color: =RGBA(8,127,112,1)
+            OnSelect: =Set(varDelivery,ThisItem); Navigate(Review)
+
+    RefreshHome As button:
+        Text: ="Vernieuwen"
+        OnSelect: =Refresh(fo_deliveries); Refresh(fo_sites)
+        X: =20
+        Y: =772
+        Width: =350
+        Height: =44
+        Size: =12

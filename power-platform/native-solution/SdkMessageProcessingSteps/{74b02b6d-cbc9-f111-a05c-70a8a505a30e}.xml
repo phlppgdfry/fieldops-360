@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SdkMessageProcessingStep Name="FieldOps Delivery Guard · Update" SdkMessageProcessingStepId="{74b02b6d-cbc9-f111-a05c-70a8a505a30e}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SdkMessageId>20bebb1b-ea3e-db11-86a7-000a3a5473e8</SdkMessageId>
+  <PluginTypeName>FieldOps360.Validation.DeliveryGuard, FieldOps360.Validation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bfe04f8d96418f62</PluginTypeName>
+  <PluginTypeId>70b02b6d-cbc9-f111-a05c-70a8a505a30e</PluginTypeId>
+  <PrimaryEntity>fo_delivery</PrimaryEntity>
+  <AsyncAutoDelete>0</AsyncAutoDelete>
+  <Configuration>ae72e8e3-c9c9-f111-a05c-70a8a505a30e</Configuration>
+  <FilteringAttributes>fo_reference,fo_supplier,fo_quantity,fo_expected,fo_unit,fo_note,fo_status,fo_confirmed,fo_erp_id,fo_siteid</FilteringAttributes>
+  <InvocationSource>1</InvocationSource>
+  <Mode>0</Mode>
+  <Rank>1</Rank>
+  <EventHandlerTypeCode>4602</EventHandlerTypeCode>
+  <Stage>20</Stage>
+  <IsCustomizable>1</IsCustomizable>
+  <IsHidden>0</IsHidden>
+  <SupportedDeployment>0</SupportedDeployment>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <SdkMessageProcessingStepImages>
+    <SdkMessageProcessingStepImage Name="Before">
+      <SdkMessageProcessingStepImageId>{89fd3473-cbc9-f111-a05c-70a8a505a30e}</SdkMessageProcessingStepImageId>
+      <Attributes>fo_reference,fo_supplier,fo_quantity,fo_expected,fo_unit,fo_note,fo_status,fo_confirmed,fo_erp_id,fo_siteid</Attributes>
+      <EntityAlias>Before</EntityAlias>
+      <ImageType>0</ImageType>
+      <MessagePropertyName>Target</MessagePropertyName>
+      <IsCustomizable>1</IsCustomizable>
+    </SdkMessageProcessingStepImage>
+  </SdkMessageProcessingStepImages>
+</SdkMessageProcessingStep>

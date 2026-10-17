@@ -1,0 +1,216 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "fo_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "Queued_job": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "fo_integrationjob",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filterexpression": "fo_state eq 'queued'",
+              "subscriptionRequest/filteringattributes": "fo_state"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "runs": 1
+            }
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "type": "Scope",
+          "actions": {
+            "Delivery": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem"
+                },
+                "parameters": {
+                  "entityName": "fo_deliveries",
+                  "recordId": "@triggerOutputs()?['body/_fo_deliveryid_value']"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runAfter": {}
+            },
+            "Verify_approved": {
+              "type": "If",
+              "expression": {
+                "equals": [
+                  "@outputs('Delivery')?['body/fo_status']",
+                  "approved"
+                ]
+              },
+              "actions": {
+                "ERP": {
+                  "type": "Http",
+                  "inputs": {
+                    "method": "POST",
+                    "uri": "https://configure-erp-endpoint.example.invalid/receipts",
+                    "headers": {
+                      "Content-Type": "application/json",
+                      "Idempotency-Key": "@triggerOutputs()?['body/fo_idempotencykey']"
+                    },
+                    "body": {
+                      "deliveryId": "@triggerOutputs()?['body/fo_idempotencykey']",
+                      "reference": "@outputs('Delivery')?['body/fo_reference']",
+                      "quantity": "@outputs('Delivery')?['body/fo_quantity']",
+                      "unit": "@outputs('Delivery')?['body/fo_unit']",
+                      "simulateFailure": "@equals(triggerOutputs()?['body/fo_error'],'SIMULATE_503')"
+                    },
+                    "retryPolicy": {
+                      "type": "exponential",
+                      "count": 2,
+                      "interval": "PT5S"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "secureData": {
+                      "properties": [
+                        "inputs",
+                        "outputs"
+                      ]
+                    }
+                  },
+                  "runAfter": {}
+                },
+                "Save_receipt": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord"
+                    },
+                    "parameters": {
+                      "entityName": "fo_deliveries",
+                      "recordId": "@triggerOutputs()?['body/_fo_deliveryid_value']",
+                      "item/fo_status": "synced",
+                      "item/fo_erp_id": "@body('ERP')?['id']"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runAfter": {
+                    "ERP": [
+                      "Succeeded"
+                    ]
+                  }
+                },
+                "Finish_job": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord"
+                    },
+                    "parameters": {
+                      "entityName": "fo_integrationjobs",
+                      "recordId": "@triggerOutputs()?['body/fo_integrationjobid']",
+                      "item/fo_state": "done",
+                      "item/fo_error": ""
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runAfter": {
+                    "Save_receipt": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Invalid_state": {
+                    "type": "Terminate",
+                    "inputs": {
+                      "runStatus": "Failed",
+                      "runError": {
+                        "code": "NotApproved",
+                        "message": "Levering is niet goedgekeurd"
+                      }
+                    },
+                    "runAfter": {}
+                  }
+                }
+              },
+              "runAfter": {
+                "Delivery": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "runAfter": {}
+        },
+        "Catch": {
+          "type": "Scope",
+          "actions": {
+            "Dead": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord"
+                },
+                "parameters": {
+                  "entityName": "fo_integrationjobs",
+                  "recordId": "@triggerOutputs()?['body/fo_integrationjobid']",
+                  "item/fo_state": "dead",
+                  "item/fo_error": "ERP-integratie mislukt; controleer de beveiligde runhistoriek."
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runAfter": {}
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,137 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Http",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "deliveryId",
+                "reference",
+                "quantity",
+                "unit"
+              ],
+              "properties": {
+                "deliveryId": {
+                  "type": "string"
+                },
+                "reference": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "simulateFailure": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "actions": {
+        "Validate": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "greater": [
+                  "@triggerBody()?['quantity']",
+                  0
+                ]
+              },
+              {
+                "not": {
+                  "equals": [
+                    "@triggerBody()?['deliveryId']",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          "actions": {
+            "Availability": {
+              "type": "If",
+              "expression": {
+                "equals": [
+                  "@triggerBody()?['simulateFailure']",
+                  true
+                ]
+              },
+              "actions": {
+                "Unavailable": {
+                  "type": "Response",
+                  "kind": "Http",
+                  "inputs": {
+                    "statusCode": 503,
+                    "body": {
+                      "error": "Deliberate FieldOps ERP test outage"
+                    }
+                  },
+                  "runAfter": {}
+                }
+              },
+              "else": {
+                "actions": {
+                  "Receipt": {
+                    "type": "Response",
+                    "kind": "Http",
+                    "inputs": {
+                      "statusCode": 200,
+                      "body": {
+                        "id": "@concat('ERP-NATIVE-',triggerBody()?['deliveryId'])",
+                        "reference": "@triggerBody()?['reference']",
+                        "provider": "FieldOps native ERP test API",
+                        "idempotent": true
+                      }
+                    },
+                    "runAfter": {}
+                  }
+                }
+              },
+              "runAfter": {}
+            }
+          },
+          "else": {
+            "actions": {
+              "Invalid": {
+                "type": "Response",
+                "kind": "Http",
+                "inputs": {
+                  "statusCode": 422,
+                  "body": {
+                    "error": "Invalid delivery"
+                  }
+                },
+                "runAfter": {}
+              }
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{09ebc487-35ca-f111-a05c-70a8a505a30e}" name="FieldOps Werfleider" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendfo_delivery" level="Global" />
+    <RolePrivilege name="prvAppendfo_document" level="Global" />
+    <RolePrivilege name="prvAppendTofo_delivery" level="Global" />
+    <RolePrivilege name="prvAppendTofo_document" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadfo_auditevent" level="Global" />
+    <RolePrivilege name="prvReadfo_delivery" level="Global" />
+    <RolePrivilege name="prvReadfo_document" level="Global" />
+    <RolePrivilege name="prvReadfo_employee" level="Global" />
+    <RolePrivilege name="prvReadfo_integrationjob" level="Global" />
+    <RolePrivilege name="prvReadfo_site" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWritefo_delivery" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

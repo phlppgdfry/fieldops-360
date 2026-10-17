@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net462</TargetFramework><LangVersion>latest</LangVersion><AssemblyVersion>1.0.0.0</AssemblyVersion><Version>1.0.0</Version><SignAssembly>true</SignAssembly><AssemblyOriginatorKeyFile>$(FieldOpsSigningKey)</AssemblyOriginatorKeyFile></PropertyGroup>
+ <ItemGroup><PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.60"/><PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net462" Version="1.0.3" PrivateAssets="All"/></ItemGroup>
+</Project>

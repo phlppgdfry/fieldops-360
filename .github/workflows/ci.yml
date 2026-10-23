@@ -15,6 +15,7 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: python3 scripts/validate-artifacts.py
+      - run: python3 scripts/check-native-release.py
       - run: npx playwright install --with-deps chromium
       - run: npm start > /tmp/fieldops-server.log 2>&1 &
       - run: node -e "for(let i=0;i<30;i++){try{const r=await fetch('http://127.0.0.1:3600/api/health');if(r.ok)process.exit(0)}catch{}await new Promise(r=>setTimeout(r,1000))}process.exit(1)"

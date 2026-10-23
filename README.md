@@ -8,7 +8,7 @@ Onafhankelijke portfolio-case voor een fictieve West-Vlaamse bouw- en transportg
 
 **Online demo:** [Open FieldOps 360](https://phlppgdfry.github.io/fieldops-360/) · [Case en video](https://phlppgdfry.github.io/fieldops-360/case/).
 
-**Status:** de publieke browserdemo heeft echte OCR, werffilters, CSV-export, paginering en een rondleiding. Daarnaast is **FieldOps 360 DEV** echt in Microsoft aangemaakt: zes tabellen, drie rollen, servervalidatie en vier cloud flows. De native ERP-, storings- en hersteltests zijn geslaagd. De gebruiker heeft een echte Microsoft-goedkeuring gegeven; die levering heeft na herstel een ERP-testontvangst in Dataverse gekregen. De Canvas App is geregistreerd en gepubliceerd; de player geeft een publicatiefout en Studio opent het bestand niet (`ErrOpeningDocument_UnknownError`). Herstel van het Canvas-bestand en native fotobinding blijven open. [Exacte status en bewijs](docs/delivery-status.md).
+**Status:** de publieke browserdemo heeft echte OCR, werffilters, CSV-export, paginering en een rondleiding. In de eigen **FieldOps 360 DEV**-omgeving staan zes tabellen, drie rollen, servervalidatie en vier actieve cloud flows. **FieldOps 360 Mobile** opent nu in Studio én de gewone Microsoft-player: registratie, concepten aanpassen, zoeken, bonfoto, echte AI Builder-tekstherkenning, veldvergelijking en menselijke bevestiging zijn uitgewerkt. Acht mobiele playertests en zeven documentopslagtests zijn geslaagd. Een echte menselijke goedkeuring is eerder verwerkt tot een ERP-testontvangst. [Exacte status en bewijs](docs/delivery-status.md).
 
 ## Online proberen
 
@@ -61,7 +61,7 @@ Windows/Linux: de CRUD-demo werkt; voor beeld-OCR is de optionele Azure-adapter 
 | Processen | [AS-IS / TO-BE BPMN](docs/processes/) |
 | Architectuur | [Datamodel, state machine en ontwerpbesluiten](docs/architecture.md) |
 | Power Apps / flows / Dataverse | [Native bronnen en status](power-platform/README.md) |
-| Native Canvas App | [FieldOps360Native.msapp](power-platform/FieldOps360Native.msapp) · [schermbronnen](power-platform/canvas-native-layout) |
+| Native Canvas App | [FieldOps360Native.msapp](power-platform/FieldOps360Native.msapp) · [moderne schermbronnen](power-platform/canvas-studio) · [authoring](docs/native-canvas-authoring.md) |
 | Echte Microsoft-installatie | [Omgeving en bewijs](docs/native-environment.md) · [solutiontemplate](power-platform/releases/FieldOps360_unmanaged_template.zip) |
 | Security | [Rechten, privacy en productiegrenzen](docs/security.md) |
 | Testen en acceptatie | [Testplan en UAT](docs/testing-uat.md) · [Testcode](tests/) |
@@ -77,7 +77,11 @@ De aparte [Microsoft-ontwikkelomgeving](docs/native-environment.md) gebruikt het
 
 ## Verificatie
 
-14 unit/API-tests en de browserroute registratie → goedkeuring → ERP zijn geslaagd. PNG-OCR herkent bonnummer, leverancier, 18 ton en eenheid correct; menselijke bevestiging blokkeert vroegtijdige indiening. Twee BPMN-bestanden zijn gecontroleerd op XML, referenties en diagramdekking. De `.msapp` is via PAC verpakt én terug uitgepakt. De eigen gebruiker heeft één native goedkeuringsscenario uitgevoerd; dit is geen ondertekende bedrijfs-UAT of productiebelastingtest.
+14 unit/API-tests en de browserroute registratie → goedkeuring → ERP zijn geslaagd. Zowel Tesseract in de browser als Microsoft TextRecognizer in de native app hebben de fictieve PNG daadwerkelijk gelezen. Native foto-opslag bewaart ook de volledige afbeelding en lange OCR-tekst. De gepubliceerde player heeft acht mobiele functietests doorlopen; Canvas- en toegankelijkheidscontrole melden geen problemen. Twee BPMN-bestanden zijn gecontroleerd op XML, referenties en diagramdekking. De eigen gebruiker heeft één native goedkeuringsscenario uitgevoerd; dit is geen ondertekende bedrijfs-UAT of productiebelastingtest.
+
+Mogelijke vervolgstappen staan in [functies en modules die nog ontbreken](docs/functionele-uitbreidingen.md): inkooporders, factuurcontrole, planning, voorraad, offline werken en QR-scanning zijn uitbreidingen en geen reeds gebouwde modules.
+
+De [native demonstratievideo](docs/evidence/native-demo.webm) en [mobiele screenshots](docs/evidence/native-mobile-home.png) tonen de echte Microsoft-player. De [openbare casepagina](https://phlppgdfry.github.io/fieldops-360/case/) bevat zowel de webdemo-opname als de native opname met Nederlandse ondertitels.
 
 Alle bedrijfsgegevens zijn fictief. ROI-bedragen zijn aannames, geen gerealiseerde besparingen of Microsoft-prijsofferte. Geen affiliatie met Nuvex Systems of genoemde leveranciers.
 

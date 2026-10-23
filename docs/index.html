@@ -150,11 +150,12 @@
       <div class="notice">
         <strong>Transparante opleverstatus</strong><br />De publieke browserdemo
         gebruikt echte OCR en oefenopslag op je toestel; ERP is gesimuleerd. De
-        lokale backendvariant gebruikt een echte test-API. De mobiele
-        FieldOps heeft een eigen Microsoft Developer-omgeving met Dataverse,
-        vier actieve cloud flows en geteste servervalidatie. Een echte menselijke
-        goedkeuring is verwerkt tot een ERP-testontvangst. De Canvas App geeft nog een publicatie-/Studio-fout;
-        herstel van het appbestand en native fotobinding blijven open.
+        lokale backendvariant gebruikt een echte test-API. De mobiele FieldOps
+        heeft een eigen Microsoft Developer-omgeving met Dataverse, vier actieve
+        cloud flows en geteste servervalidatie. Een echte menselijke goedkeuring
+        is verwerkt tot een ERP-testontvangst. De nieuwe Canvas App opent in
+        Studio en player. Native bonfoto, Microsoft-tekstherkenning,
+        veldvergelijking en menselijke controle zijn getest.
         <a
           href="https://github.com/phlppgdfry/fieldops-360/blob/main/docs/delivery-status.md"
           >Bekijk het bewijs en de open punten.</a
@@ -167,6 +168,7 @@
         ondertiteling beschikbaar via CC.
       </p>
       <video
+        aria-label="Lokale webdemo"
         controls
         preload="metadata"
         poster="evidence/dashboard-desktop.png"
@@ -174,6 +176,31 @@
         <source src="evidence/demo.webm" type="video/webm" />
         <track
           src="evidence/demo.nl.vtt"
+          kind="subtitles"
+          srclang="nl"
+          label="Nederlands"
+          default
+        />
+        Je browser ondersteunt deze video niet.
+      </video>
+      <h2>De echte Microsoft-app.</h2>
+      <p>
+        Opname uit de gepubliceerde FieldOps 360 Mobile-app: levering zoeken,
+        bon en opgeslagen Microsoft-OCR controleren, menselijke bevestiging en
+        de ERP-ontvangst van een eerder werkelijk goedgekeurde UAT-levering. Dit
+        is de privé-ontwikkelomgeving; de openbare demo gebruikt eigen
+        oefendata.
+      </p>
+      <video
+        aria-label="Native Power Apps-demonstratie"
+        controls
+        preload="metadata"
+        poster="evidence/native-mobile-home.png"
+        style="max-width: 390px"
+      >
+        <source src="evidence/native-demo.webm" type="video/webm" />
+        <track
+          src="evidence/native-demo.nl.vtt"
           kind="subtitles"
           srclang="nl"
           label="Nederlands"

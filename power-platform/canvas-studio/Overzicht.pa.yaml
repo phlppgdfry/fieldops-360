@@ -1,0 +1,165 @@
+Screens:
+  Overzicht:
+    Properties:
+      Fill: =RGBA(246,249,248,1)
+      OnVisible: =Refresh(Leveringen); Refresh(Documenten)
+    Children:
+    - OverzichtViewport:
+        Control: GroupContainer
+        Variant: AutoLayout
+        Properties:
+          Width: =Parent.Width
+          Height: =Parent.Height
+          LayoutDirection: =LayoutDirection.Vertical
+          LayoutOverflowY: =LayoutOverflow.Scroll
+          LayoutOverflowX: =LayoutOverflow.Hide
+          DropShadow: =DropShadow.None
+        Children:
+        - OverzichtBody:
+            Control: GroupContainer
+            Variant: ManualLayout
+            Properties:
+              Width: =Parent.Width
+              Height: =2000
+              LayoutMinHeight: =2000
+              LayoutMinWidth: =0
+              FillPortions: =0
+              DropShadow: =DropShadow.None
+            Children:
+            - FieldOps360Title:
+                Control: Label
+                Properties:
+                  Text: ="FieldOps 360"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =44
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =48
+                  Color: =RGBA(20,45,51,1)
+                  FontWeight: =FontWeight.Semibold
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - FieldOps360Subtitle:
+                Control: Label
+                Properties:
+                  Text: ="Leveringen, bonnen en opvolging · rechtstreeks in Dataverse"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =132
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =76
+                  Size: =22
+                  Color: =RGBA(90,111,120,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - NewDelivery:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Nieuwe levering"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =236
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(8,127,112,1)
+                  Color: =Color.White
+                  Size: =28
+                  OnSelect: =Set(varDelivery,Blank()); Set(varDocument,Blank()); Set(varPhoto,Blank()); Set(varAiPhoto,Blank()); Set(varRawOcr,""); Set(varAiUsed,false); Navigate(RegisterScreen)
+            - SearchDelivery:
+                Control: Classic/TextInput
+                Properties:
+                  Default: =""
+                  HintText: ="Zoek bonnummer of leverancier"
+                  AccessibleLabel: ="Zoek bonnummer of leverancier"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =360
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =26
+                  BorderColor: =RGBA(200,215,216,1)
+            - DeliveryGallery:
+                Control: Gallery
+                Variant: Vertical
+                Properties:
+                  Items: =SortByColumns(Filter(Leveringen,IsBlank(SearchDelivery.Text) || StartsWith(Bonnummer,SearchDelivery.Text) || StartsWith(Leverancier,SearchDelivery.Text)),"createdon",SortOrder.Descending)
+                  AccessibleLabel: ="Recente leveringen"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =484
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =Min(928,Parent.Height-720)
+                  TemplateSize: =192
+                  TemplatePadding: =8
+                  TemplateFill: =Color.White
+                  TabIndex: =0
+                Children:
+                - DeliveryReference:
+                    Control: Label
+                    Properties:
+                      Text: =ThisItem.Bonnummer
+                      X: =24
+                      Y: =12
+                      Width: =Parent.TemplateWidth-48
+                      Height: =52
+                      Size: =28
+                      Color: =RGBA(20,45,51,1)
+                      FontWeight: =FontWeight.Semibold
+                      TabIndex: =0
+                      FocusedBorderThickness: =4
+                - DeliverySupplier:
+                    Control: Label
+                    Properties:
+                      Text: =ThisItem.Leverancier
+                      X: =24
+                      Y: =68
+                      Width: =Parent.TemplateWidth-48
+                      Height: =48
+                      Size: =24
+                      Color: =RGBA(20,45,51,1)
+                      TabIndex: =0
+                      FocusedBorderThickness: =4
+                - DeliveryStatus:
+                    Control: Label
+                    Properties:
+                      Text: =Switch(ThisItem.Processtatus,"draft","Concept","pending","Ter controle","approved","Goedgekeurd","synced","Gesynchroniseerd","rejected","Afgewezen",ThisItem.Processtatus)
+                      X: =24
+                      Y: =120
+                      Width: =Parent.TemplateWidth-48
+                      Height: =48
+                      Size: =22
+                      Color: =RGBA(8,127,112,1)
+                      TabIndex: =0
+                      FocusedBorderThickness: =4
+                - DeliveryOpen:
+                    Control: Classic/Icon
+                    Properties:
+                      Icon: =Icon.ChevronRight
+                      AccessibleLabel: ="Open levering"
+                      X: =Parent.TemplateWidth-72
+                      Y: =44
+                      Width: =56
+                      Height: =64
+                      Color: =RGBA(8,127,112,1)
+                      OnSelect: =Set(varDelivery,ThisItem); Set(varDocument,LookUp(Documenten,delivery.Levering=ThisItem.Levering)); Navigate(ReviewScreen)
+                      TabIndex: =0
+            - RefreshDeliveries:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Vernieuwen"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1480
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(8,127,112,1)
+                  Color: =Color.White
+                  Size: =28
+                  OnSelect: =Refresh(Leveringen); Refresh(Documenten); Notify("Gegevens bijgewerkt",NotificationType.Success)
+            - SignedInUser:
+                Control: Label
+                Properties:
+                  Text: =User().FullName
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1596
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =48
+                  Size: =20
+                  Color: =RGBA(90,111,120,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4

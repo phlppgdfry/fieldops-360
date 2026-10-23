@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-22T16:58:36.721Z",
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "table": "fo_document",
+  "imageColumn": "fo_photo",
+  "fullImage": true,
+  "maxSizeInKB": 10240,
+  "scope": "Storage metadata check; real upload/download and actual Canvas OCR results are recorded separately.",
+  "evidence": [
+    "native-document-tests.json",
+    "native-ocr-ui-test.json"
+  ]
+}

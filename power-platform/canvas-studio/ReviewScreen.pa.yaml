@@ -1,0 +1,211 @@
+Screens:
+  ReviewScreen:
+    Properties:
+      Fill: =RGBA(246,249,248,1)
+      OnVisible: =Reset(HumanConfirm)
+    Children:
+    - ReviewScreenViewport:
+        Control: GroupContainer
+        Variant: AutoLayout
+        Properties:
+          Width: =Parent.Width
+          Height: =Parent.Height
+          LayoutDirection: =LayoutDirection.Vertical
+          LayoutOverflowY: =LayoutOverflow.Scroll
+          LayoutOverflowX: =LayoutOverflow.Hide
+          DropShadow: =DropShadow.None
+        Children:
+        - ReviewScreenBody:
+            Control: GroupContainer
+            Variant: ManualLayout
+            Properties:
+              Width: =Parent.Width
+              Height: =2000
+              LayoutMinHeight: =2000
+              LayoutMinWidth: =0
+              FillPortions: =0
+              DropShadow: =DropShadow.None
+            Children:
+            - ControleleveringTitle:
+                Control: Label
+                Properties:
+                  Text: ="Controle levering"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =44
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =48
+                  Color: =RGBA(20,45,51,1)
+                  FontWeight: =FontWeight.Semibold
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ControleleveringSubtitle:
+                Control: Label
+                Properties:
+                  Text: ="Controleer de bon en bevestig de gegevens vóór indiening."
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =132
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =76
+                  Size: =22
+                  Color: =RGBA(90,111,120,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReviewReference:
+                Control: Label
+                Properties:
+                  Text: =varDelivery.Bonnummer
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =232
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =72
+                  Size: =40
+                  Color: =RGBA(20,45,51,1)
+                  FontWeight: =FontWeight.Semibold
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReviewSupplier:
+                Control: Label
+                Properties:
+                  Text: =varDelivery.Leverancier
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =320
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =56
+                  Size: =26
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReviewQuantities:
+                Control: Label
+                Properties:
+                  Text: =Text(varDelivery.Geleverd)&" "&varDelivery.Eenheid&" geleverd / "&Text(varDelivery.Besteld)&" besteld"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =400
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =76
+                  Size: =28
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReviewDeviation:
+                Control: Label
+                Properties:
+                  Text: '=If(varDelivery.Besteld>0,"Afwijking: "&Text(100*Abs(varDelivery.Geleverd-varDelivery.Besteld)/varDelivery.Besteld,"0.0")&"%","")'
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =484
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =56
+                  Size: =26
+                  Color: =If(varDelivery.Besteld>0 && Abs(varDelivery.Geleverd-varDelivery.Besteld)/varDelivery.Besteld>0.05,RGBA(160,85,0,1),RGBA(8,127,112,1))
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReviewNote:
+                Control: Label
+                Properties:
+                  Text: =Coalesce(varDelivery.Afwijkingsreden,"Geen afwijking of schade gemeld")
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =560
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =136
+                  Size: =26
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReviewProcess:
+                Control: Label
+                Properties:
+                  Text: '= "Status: "&Switch(varDelivery.Processtatus,"draft","Concept","pending","Ter controle","approved","Goedgekeurd","synced","Gesynchroniseerd","rejected","Afgewezen",varDelivery.Processtatus)'
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =720
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =56
+                  Size: =26
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReviewReceipt:
+                Control: Label
+                Properties:
+                  Text: =If(IsBlank(varDelivery.'ERP ontvangst'),"ERP-ontvangst volgt na goedkeuring",varDelivery.'ERP ontvangst')
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =800
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =88
+                  Size: =22
+                  Color: =RGBA(90,111,120,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - OpenDocument:
+                Control: Classic/Button
+                Properties:
+                  Text: =If(IsBlank(varDocument),"Bonfoto / tekstherkenning toevoegen","Bonfoto / tekstherkenning bekijken")
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =924
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(8,127,112,1)
+                  Color: =Color.White
+                  Size: =28
+                  OnSelect: =Navigate(DocumentScreen)
+            - HumanConfirm:
+                Control: Classic/CheckBox
+                Properties:
+                  Text: ="Ik heb de bon, hoeveelheden en eventuele herkenningsresultaten gecontroleerd"
+                  Default: =false
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1064
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =144
+                  Size: =24
+                  DisplayMode: =If(varDelivery.Processtatus="draft",DisplayMode.Edit,DisplayMode.Disabled)
+            - SubmitDelivery:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Indienen ter goedkeuring"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1256
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(8,127,112,1)
+                  Color: =Color.White
+                  Size: =28
+                  OnSelect: =If(HumanConfirm.Value && varDelivery.Processtatus="draft",IfError(Set(varDelivery,Patch(Leveringen,varDelivery,{'Menselijk bevestigd':true,Processtatus:"pending"})); Notify("Ingediend. De onafhankelijke goedkeuring wordt door de cloud flow verwerkt.",NotificationType.Success),Notify("Indienen mislukt. Controleer de gegevens.",NotificationType.Error)),Notify("Bevestig eerst de controle",NotificationType.Warning))
+                  DisplayMode: =If(HumanConfirm.Value && varDelivery.Processtatus="draft",DisplayMode.Edit,DisplayMode.Disabled)
+            - RefreshReview:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Status vernieuwen"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1380
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(225,235,233,1)
+                  Color: =RGBA(20,45,51,1)
+                  Size: =28
+                  OnSelect: =Refresh(Leveringen); Set(varDelivery,LookUp(Leveringen,Levering=varDelivery.Levering))
+            - BackReview:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Overzicht"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1496
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(225,235,233,1)
+                  Color: =RGBA(20,45,51,1)
+                  Size: =28
+                  OnSelect: =Navigate(Overzicht)
+            - EditDelivery:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Concept aanpassen"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1620
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(225,235,233,1)
+                  Color: =RGBA(20,45,51,1)
+                  Size: =28
+                  OnSelect: =Navigate(RegisterScreen)
+                  Visible: =varDelivery.Processtatus="draft" || varDelivery.Processtatus="rejected"

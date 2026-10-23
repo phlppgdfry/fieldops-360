@@ -7,7 +7,7 @@ FieldOps heeft sinds 17 oktober 2026 een eigen **Developer**-omgeving in de Revi
 - Dataverse: `https://fieldops360dev.crm17.dynamics.com`
 - [Power Apps-omgeving](https://make.powerapps.com/environments/75afe50a-9cf3-ef33-9d38-148faf2e7e48/home)
 - [Cloud flows](https://make.powerautomate.com/environments/75afe50a-9cf3-ef33-9d38-148faf2e7e48/flows)
-- [Native app](https://apps.powerapps.com/play/e/75afe50a-9cf3-ef33-9d38-148faf2e7e48/a/9b00ff7e-1b3e-40be-9890-ae24ca13831d?tenantId=7f1c6fb7-387b-4cad-a5f5-2c33b8e50295)
+- [Native app — FieldOps 360 Mobile](https://apps.powerapps.com/play/e/75afe50a-9cf3-ef33-9d38-148faf2e7e48/a/06f55c18-3b97-4781-a5c5-4058eb5fb458?tenantId=7f1c6fb7-387b-4cad-a5f5-2c33b8e50295)
 
 Dit zijn privé-Microsoft-bronnen: de GitHub Pages-demo geeft bezoekers geen toegang tot deze omgeving. De browserdemo blijft volledig gescheiden van Microsoft-gegevens.
 
@@ -31,4 +31,6 @@ De bestaande self-elevation in de standaardomgeving blijft gelden totdat de behe
 
 De runtime-connector gebruikt een toepassingsidentiteit met alleen FieldOps-rechten. De connectorsleutel is 30 dagen geldig en staat uitsluitend versleuteld bij Microsoft. Tijdelijke integratietests maken een eigen kortlevende sleutel aan, houden die in geheugen en trekken die in `finally` weer in. Geen toegangstokens, clientsleutels of gesigneerde HTTP-callbacks horen in GitHub.
 
-Het Developer Plan is voor ontwikkeling en tests. AI Builder is niet inbegrepen; de publieke OCR gebruikt echte Tesseract.js op het toestel. De native app is afzonderlijk geregistreerd; de player geeft een publicatiefout en Studio meldt `ErrOpeningDocument_UnknownError`. Het Canvas-bestand moet worden hersteld.
+Het Developer Plan is voor ontwikkeling en tests. De publieke OCR gebruikt Tesseract.js op het toestel. De native app gebruikt Microsoft TextRecognizer: de echte uitvoering en opslag zijn op 22 oktober aangetoond. Dit bewijst geen onbeperkt gratis AI Builder-gebruik; eindgebruikers hebben passende rechten/capaciteit nodig. Er is geen nieuwe betaalde capaciteit besteld.
+
+De nieuwe app opent in Studio en player. De oude app is alleen uit de FieldOps360-solution verwijderd en niet uit de omgeving gewist. De moderne bronnen, authoringprocedure en native testbewijzen staan in [native-canvas-authoring.md](native-canvas-authoring.md), `native-player-tests.json`, `native-ocr-ui-test.json`, `native-document-tests.json` en `native-canvas-quality.json`.

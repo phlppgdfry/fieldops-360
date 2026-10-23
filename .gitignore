@@ -21,3 +21,5 @@ dist-pages/
 power-platform/plugin/bin/
 power-platform/plugin/obj/
 *.snk
+
+.playwright-cli/

@@ -10,3 +10,9 @@ De video toont de werkende lokale webapp; het is geen opname van Power Apps Stud
 1:40–2:00: Businesscase en repository. Pas tijdwinst aan, benoem aannames. Toon business requirements, BPMN, tests en expliciete status van native Power Platform-installatie.
 
 Vragen voor gesprek: Waarom server-side validatie? Hoe voorkomt idempotentie duplicaten na timeout? Waarom menselijke OCR-review? Hoe werken user/team-owned Dataverse-rollen? Welke productiecriteria staan nog open?
+
+## Echte native opname
+
+[native-demo.webm](evidence/native-demo.webm) toont ongeveer 25 seconden uit de gepubliceerde Microsoft-player: zoeken in Dataverse, 18/24 ton en 25% afwijking, opgeslagen echte Microsoft-OCR, menselijke controle en de ERP-testontvangst van een eerder door de gebruiker goedgekeurde UAT. De opname voert zelf geen goedkeuringsbeslissing uit. Nederlandse ondertitels staan naast de video.
+
+Reproduceren met de eigen aangemelde testbrowser: `sh scripts/record-native-demo.sh`, daarna `python3 scripts/finalize-native-demo.py`. De ruwe opnamen blijven privé in `.data/`; alleen de gecontroleerde uitsnede en captions horen in GitHub. Gebruik uitsluitend fictieve records en neem geen aanmelding op.

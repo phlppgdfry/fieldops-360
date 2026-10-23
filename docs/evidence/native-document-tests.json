@@ -1,0 +1,40 @@
+{
+  "checkedAt": "2026-10-22T17:06:04.914Z",
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "scope": "Real Dataverse document upload/download and full text round trip through the restricted runtime identity; not a Canvas UI or OCR execution test.",
+  "checks": [
+    {
+      "name": "Limited runtime can create a document linked to its delivery",
+      "ok": true
+    },
+    {
+      "name": "Document retains the delivery relationship",
+      "ok": true
+    },
+    {
+      "name": "Full recognition text survives beyond the old 4000-character limit",
+      "ok": true
+    },
+    {
+      "name": "Human-review requirement survives as valid JSON",
+      "ok": true
+    },
+    {
+      "name": "Dataverse generated an image thumbnail",
+      "ok": true
+    },
+    {
+      "name": "Full-size document image is downloadable",
+      "ok": true
+    },
+    {
+      "name": "Uploading an image does not submit or confirm the delivery",
+      "ok": true
+    }
+  ],
+  "deliveryId": "4e1928e6-3ace-f111-a05c-70a8a505a30e",
+  "documentId": "501928e6-3ace-f111-a05c-70a8a505a30e",
+  "originalImageBytes": 1259222,
+  "downloadedImageBytes": 1259222,
+  "downloadContentType": "application/octet-stream"
+}

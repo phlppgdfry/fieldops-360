@@ -1,0 +1,163 @@
+Screens:
+  DocumentScreen:
+    Properties:
+      Fill: =RGBA(246,249,248,1)
+      OnVisible: =Set(varPhoto,Blank()); Set(varAiPhoto,Blank()); Set(varRawOcr,Coalesce(varDocument.Herkenningstekst,"")); Set(varAiUsed,varDocument.'OCR provider'="AI Builder Text Recognizer"); Set(varOcrReference,Trim(Match(varRawOcr,"Bonnummer:\s*(?<result>[^\r\n]+)").result)); Set(varOcrSupplier,Trim(Match(varRawOcr,"Leverancier:\s*(?<result>[^\r\n]+)").result)); Set(varOcrQuantity,Trim(Match(varRawOcr,"Hoeveelheid:\s*(?<result>[0-9.,]+)").result)); Set(varOcrExpected,Trim(Match(varRawOcr,"Besteld:\s*(?<result>[0-9.,]+)").result)); Set(varOcrMismatch,IsBlank(varOcrReference) || IsBlank(varOcrSupplier) || IsBlank(varOcrQuantity) || IsBlank(varOcrExpected) || Upper(varOcrReference)<>Upper(varDelivery.Bonnummer) || Lower(varOcrSupplier)<>Lower(varDelivery.Leverancier) || IfError(Value(varOcrQuantity)<>varDelivery.Geleverd,true) || IfError(Value(varOcrExpected)<>varDelivery.Besteld,true))
+    Children:
+    - DocumentScreenViewport:
+        Control: GroupContainer
+        Variant: AutoLayout
+        Properties:
+          Width: =Parent.Width
+          Height: =Parent.Height
+          LayoutDirection: =LayoutDirection.Vertical
+          LayoutOverflowY: =LayoutOverflow.Scroll
+          LayoutOverflowX: =LayoutOverflow.Hide
+          DropShadow: =DropShadow.None
+        Children:
+        - DocumentScreenBody:
+            Control: GroupContainer
+            Variant: ManualLayout
+            Properties:
+              Width: =Parent.Width
+              Height: =2000
+              LayoutMinHeight: =2000
+              LayoutMinWidth: =0
+              FillPortions: =0
+              DropShadow: =DropShadow.None
+            Children:
+            - BonenherkenningTitle:
+                Control: Label
+                Properties:
+                  Text: ="Bon en herkenning"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =44
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =48
+                  Color: =RGBA(20,45,51,1)
+                  FontWeight: =FontWeight.Semibold
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - BonenherkenningSubtitle:
+                Control: Label
+                Properties:
+                  Text: ="AI-uitvoer blijft een voorstel. Controleer elk overgenomen veld."
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =132
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =76
+                  Size: =22
+                  Color: =RGBA(90,111,120,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - DocumentPreview:
+                Control: Image
+                Properties:
+                  Image: =If(!IsBlank(varAiPhoto),varAiPhoto,!IsBlank(varPhoto),varPhoto,varDocument.Bonfoto.Full)
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =348
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =292
+                  AccessibleLabel: ="Voorbeeld van de bonfoto"
+                  TabIndex: =0
+            - BonPhoto:
+                Control: AddMedia
+                Properties:
+                  Text: ="Bonfoto kiezen of maken"
+                  ChangePictureText: ="Andere foto kiezen"
+                  AccessibleLabel: ="Bonfoto kiezen of maken"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =224
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =88
+                  OnChange: =Set(varPhoto,Self.Media); Set(varRawOcr,""); Set(varAiUsed,false); Set(varAiPhoto,Blank())
+            - BonRecognizer:
+                Control: TextRecognizer
+                Properties:
+                  Text: ="Bon automatisch lezen"
+                  DefaultImage: =varPhoto
+                  OnChange: =If(!IsBlank(Self.FullText),Set(varRawOcr,Self.FullText); Set(varAiPhoto,Self.OriginalImage); Set(varAiUsed,!IsBlank(Self.FullText)); Set(varOcrReference,Trim(Match(Self.FullText,"Bonnummer:\s*(?<result>[^\r\n]+)").result)); Set(varOcrSupplier,Trim(Match(Self.FullText,"Leverancier:\s*(?<result>[^\r\n]+)").result)); Set(varOcrQuantity,Trim(Match(Self.FullText,"Hoeveelheid:\s*(?<result>[0-9.,]+)").result)); Set(varOcrExpected,Trim(Match(Self.FullText,"Besteld:\s*(?<result>[0-9.,]+)").result)); Set(varOcrMismatch,IsBlank(varOcrReference) || IsBlank(varOcrSupplier) || IsBlank(varOcrQuantity) || IsBlank(varOcrExpected) || Upper(varOcrReference)<>Upper(varDelivery.Bonnummer) || Lower(varOcrSupplier)<>Lower(varDelivery.Leverancier) || IfError(Value(varOcrQuantity)<>varDelivery.Geleverd,true) || IfError(Value(varOcrExpected)<>varDelivery.Besteld,true)))
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =676
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =360
+                  ShowBoundingBoxes: =true
+                  ShowControls: =true
+                  ImageDisplayed: =true
+                  FillColor: =RGBA(8,127,112,1)
+                  FontColor: =Color.White
+            - OcrCaption:
+                Control: Label
+                Properties:
+                  Text: ="Herkenningsresultaat — controle vereist"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1064
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =56
+                  Size: =24
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - OcrOutput:
+                Control: Classic/TextInput
+                Properties:
+                  Default: =Coalesce(varRawOcr,varDocument.Herkenningstekst)
+                  HintText: ="Nog geen herkende tekst"
+                  AccessibleLabel: ="Nog geen herkende tekst"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1132
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =172
+                  Size: =26
+                  BorderColor: =RGBA(200,215,216,1)
+                  Mode: =TextMode.MultiLine
+                  DisplayMode: =DisplayMode.View
+            - SaveDocument:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Bon aan levering bewaren"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1644
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(8,127,112,1)
+                  Color: =Color.White
+                  Size: =28
+                  OnSelect: =If(varDelivery.Processtatus<>"draft",Notify("Een ingediende levering kan niet meer worden aangepast",NotificationType.Warning),IsBlank(varPhoto) && IsBlank(varAiPhoto),Notify("Kies eerst een bonfoto",NotificationType.Warning),IfError(Set(varDocument,Patch(Documenten,If(IsBlank(varDocument),Defaults(Documenten),varDocument),{'Document (fo_name)':varDelivery.Bonnummer&" — bon",delivery:varDelivery,Bonfoto:{Full:DocumentPreview.Image,Value:DocumentPreview.Image},'OCR resultaat JSON':JSON({reviewRequired:true,characters:Len(varRawOcr),reference:varOcrReference,supplier:varOcrSupplier,quantity:varOcrQuantity,expected:varOcrExpected,mismatch:varOcrMismatch},JSONFormat.Compact),Herkenningstekst:Left(varRawOcr,100000),'OCR provider':If(varAiUsed,"AI Builder Text Recognizer","Manual photo capture")})); Notify("Bon bewaard. Controleer de levering vóór indiening.",NotificationType.Success); Navigate(ReviewScreen),Notify("Bon opslaan mislukt. Controleer bestand en rechten.",NotificationType.Error)))
+            - BackDocument:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Terug naar controle"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1764
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(225,235,233,1)
+                  Color: =RGBA(20,45,51,1)
+                  Size: =28
+                  OnSelect: =Navigate(ReviewScreen)
+            - ExtractedFields:
+                Control: Label
+                Properties:
+                  Text: '=If(varAiUsed,"Voorstel: "&varOcrReference&" · "&varOcrSupplier&Char(10)&"Geleverd "&varOcrQuantity&" / besteld "&varOcrExpected,"Kies in de tekstherkenner een afbeelding om velden te herkennen.")'
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1320
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =144
+                  Size: =24
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - OcrComparison:
+                Control: Label
+                Properties:
+                  Text: '=If(varAiUsed,If(varOcrMismatch,"Controle vereist: velden ontbreken of verschillen van de levering.","Herkende velden komen overeen. Controleer ook de originele bon."),"De originele foto blijft gekoppeld aan de levering.")'
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1480
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =128
+                  Size: =24
+                  Color: =If(varAiUsed && varOcrMismatch,RGBA(160,85,0,1),RGBA(8,127,112,1))
+                  TabIndex: =0
+                  FocusedBorderThickness: =4

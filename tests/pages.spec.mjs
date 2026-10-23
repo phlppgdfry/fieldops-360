@@ -1,4 +1,37 @@
 import { test, expect } from "@playwright/test";
+
+test("casepagina speelt de echte native opname en laadt Nederlandse ondertitels", async ({
+  page,
+}) => {
+  await page.goto("case/");
+  const video = page.getByLabel("Native Power Apps-demonstratie", {
+    exact: true,
+  });
+  await video.scrollIntoViewIfNeeded();
+  await video.evaluate((v) => v.load());
+  await expect
+    .poll(() =>
+      video.evaluate((v) => ({
+        width: v.videoWidth,
+        height: v.videoHeight,
+        durationValid: v.duration > 20 && v.duration < 40,
+      })),
+    )
+    .toEqual({ width: 390, height: 796, durationValid: true });
+  await video.evaluate(async (v) => {
+    v.muted = true;
+    await v.play();
+  });
+  await expect
+    .poll(() => video.evaluate((v) => v.currentTime))
+    .toBeGreaterThan(0.1);
+  await video.evaluate((v) => v.pause());
+  const track = await video.locator("track").getAttribute("src");
+  const captions = await page.request.get(new URL(track, page.url()).href);
+  expect(captions.ok()).toBe(true);
+  expect(await captions.text()).toContain("WEBVTT");
+  expect(await captions.text()).toContain("Menselijke bevestiging");
+});
 test("GitHub Pages: echte browser-OCR, verplichte menscontrole en gesimuleerde ERP-keten", async ({
   page,
   context,
@@ -104,7 +137,9 @@ test("GitHub Pages: echte browser-OCR, verplichte menscontrole en gesimuleerde E
   await expect(
     page.getByRole("heading", { name: /Grip op elke levering/ }),
   ).toBeVisible();
-  await expect(page.locator("video")).toBeVisible();
+  await expect(
+    page.getByLabel("Lokale webdemo", { exact: true }),
+  ).toBeVisible();
 });
 test("bezoekers hebben eigen opslag en tekst wordt niet als AI voorgesteld", async ({
   page,

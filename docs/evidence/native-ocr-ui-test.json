@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-23T12:29:47.930Z",
+  "scope": "Actual Microsoft TextRecognizer execution in the published Canvas player, full photo and OCR save to Dataverse, human confirmation still required",
+  "sample": "samples/leveringsbon.png",
+  "document": {
+    "@odata.etag": "W/\"2423146\"",
+    "fo_ocrtext": "FIELDOPS 360\nLEVERINGSBON\nBonnummer: OCR-2026-001\nLeverancier: Demo Beton\nHoeveelheid: 18\nEenheid: ton\nWerf: Kanaalzone Brugge\nBesteld: 24 ton\nAfwijking: 6 ton ontbreekt\nFictief oefendocument - geen echte transactie",
+    "fo_name": "NATIVE-UI-1792690301861 — bon",
+    "modifiedon": "2026-10-22T22:26:32Z",
+    "fo_extracted": "{\"characters\":215,\"expected\":\"24\",\"mismatch\":true,\"quantity\":\"18\",\"reference\":\"OCR-2026-001\",\"reviewRequired\":true,\"supplier\":\"Demo Beton\"}",
+    "fo_documentid": "4da06313-40ce-f111-a05c-70a8a505a30e",
+    "_fo_deliveryid_value": "be21fd70-3ece-f111-a05c-70a8a505a30e",
+    "fo_provider": "AI Builder Text Recognizer"
+  },
+  "checks": [
+    {
+      "name": "AI Builder actually recognized the image",
+      "ok": true
+    },
+    {
+      "name": "Full OCR text persisted in Dataverse",
+      "ok": true
+    },
+    {
+      "name": "Extracted fields persisted with an explicit mismatch and review requirement",
+      "ok": true
+    }
+  ]
+}

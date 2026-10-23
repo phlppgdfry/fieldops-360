@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.26094.146" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26094.146" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26101.00157">
+<ImportExportXml version="9.2.26101.157" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26101.157" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26102.00120">
   <SolutionManifest>
     <UniqueName>FieldOps360</UniqueName>
     <LocalizedNames>
@@ -91,11 +91,18 @@
       <RootComponent type="29" id="{8a048adc-23c9-f111-a05a-7ced8d73af63}" behavior="0" />
       <RootComponent type="29" id="{9d2d2c31-cbc9-f111-a05c-70a8a505a30e}" behavior="0" />
       <RootComponent type="29" id="{aae133f0-cbc9-f111-a05c-70a8a505a30e}" behavior="0" />
-      <RootComponent type="300" schemaName="fo_fieldops360native_c065c" behavior="0" />
+      <RootComponent type="300" schemaName="fo_fieldops360mobile_46012" behavior="0" />
       <RootComponent type="91" id="{0dc31d67-cbc9-f111-a05c-70a8a505a30e}" schemaName="FieldOps360.Validation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bfe04f8d96418f62" behavior="0" />
       <RootComponent type="92" id="{71b02b6d-cbc9-f111-a05c-70a8a505a30e}" behavior="0" />
       <RootComponent type="92" id="{74b02b6d-cbc9-f111-a05c-70a8a505a30e}" behavior="0" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_aimodel" displayName="AI Model" solution="msdyn_AISolution (202608.1.4.1)">
+          <package appName="PowerAI" version="202608.1.4.1">msdyn_AISolutionAnchor (202608.1.4.1)</package>
+        </Required>
+        <Dependent type="300" schemaName="fo_fieldops360mobile_46012" displayName="FieldOps 360 Mobile" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>

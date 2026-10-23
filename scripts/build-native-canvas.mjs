@@ -1,6 +1,10 @@
 import { client } from "./dataverse.mjs";
 import { readFile, writeFile, mkdir, cp } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
+if (process.env.FIELDOPS_ALLOW_LEGACY_BUILD !== "1")
+  throw Error(
+    "Retired legacy builder. Use scripts/build-studio-source.py and the official Microsoft Canvas Authoring MCP with canvas-studio/. See docs/native-canvas-authoring.md.",
+  );
 const call = client();
 const dest = "power-platform/canvas-native";
 await cp("power-platform/canvas-legacy", dest, {

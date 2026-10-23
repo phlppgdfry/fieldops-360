@@ -1,5 +1,18 @@
 # Handleiding
 
+## Native Microsoft-app
+
+Open **FieldOps 360 Mobile** via de [eigen ontwikkelomgeving](native-environment.md). Meld aan met het toegestane werkaccount. Deze app bewaart echte gegevens in de privé-Dataverse-omgeving; de openbare GitHub-demo heeft eigen browseropslag.
+
+1. Kies **Nieuwe levering**, vul bonnummer, leverancier, werf, geleverde/bestelde hoeveelheid en eenheid in. Een verschil boven 5% vereist een reden. Bewaar als concept.
+2. Open **Bonfoto / tekstherkenning toevoegen**. Kies of maak een foto. Voor automatische herkenning kies je de afbeelding ook in de Microsoft-tekstherkenner; alleen een foto kiezen start de AI niet vanzelf.
+3. Controleer de originele foto, herkende tekst en veldvergelijking. Een ontbrekend of afwijkend bonnummer, leverancier of hoeveelheid geeft een waarschuwing. De app overschrijft je gegevens niet automatisch. Bewaar de bon bij de levering.
+4. Gebruik zo nodig **Concept aanpassen**. De bestaande levering wordt gewijzigd; er wordt geen tweede dossier aangemaakt. Ook een afgewezen dossier kan eerst inhoudelijk worden aangepast en opnieuw als concept worden bewaard.
+5. Vink de menselijke controle aan en kies **Indienen ter goedkeuring**. Alleen aanvinken dient niets in. Ingediende/afgehandelde gegevens zijn niet via dit formulier wijzigbaar.
+6. De onafhankelijke goedkeurder beslist in Microsoft Approvals. Zelfgoedkeuring wordt geweigerd. Vernieuw de status: na goedkeuring verwerkt de cloud flow de ERP-taak en verschijnt de ontvangst-ID.
+
+De app werkt online. Native foto's zijn maximaal 10 MB; gebruikte opslag bewaart ook de volledige afbeelding. Microsoft AI Builder vereist passende rechten/capaciteit. De native werfleiderrol ziet momenteel alle FieldOps-werven; werfgebonden teams zijn een uitbreiding. De onderstaande rolselector- en serverinstructies gelden voor de afzonderlijke lokale demo.
+
 ## Starten
 Node.js 24+, `npm ci`, `npm run build`, `npm start`. Open http://127.0.0.1:3600. Opslag in `.data/fieldops.sqlite`; uploads in `.data/uploads`. Stop de server voor een consistente lokale bestandsback-up. Demo herstellen: hernoem `.data` naar een gedateerde back-up en herstart; wis nooit echte data als demo-reset.
 

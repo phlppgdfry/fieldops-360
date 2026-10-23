@@ -38,6 +38,12 @@ for (const file of [
   "approved-synced.png",
   "demo.webm",
   "demo.nl.vtt",
+  "native-demo.webm",
+  "native-demo.nl.vtt",
+  "native-mobile-home.png",
+  "native-mobile-review.png",
+  "native-mobile-ocr.png",
+  "native-mobile-erp.png",
 ])
   await copyFile("docs/evidence/" + file, "dist-pages/case/evidence/" + file);
 await mkdir("dist-pages/samples", { recursive: true });

@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-22T20:14:17.179Z",
+  "app": {
+    "@odata.etag": "W/\"2418704\"",
+    "name": "fo_fieldops360mobile_46012",
+    "displayname": "FieldOps 360 Mobile",
+    "canvasappid": "06f55c18-3b97-4781-a5c5-4058eb5fb458"
+  },
+  "solution": "FieldOps360",
+  "retiredAppRemovedFromSolution": true,
+  "retiredAppDeleted": false
+}

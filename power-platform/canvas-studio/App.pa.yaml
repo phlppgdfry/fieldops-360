@@ -1,0 +1,7 @@
+App:
+  Properties:
+    Theme: =PowerAppsTheme
+    StartScreen: =Overzicht
+    MinScreenWidth: =320
+    MinScreenHeight: =320
+    OnStart: =Set(varBusy,false); Set(varPhoto,Blank()); Set(varAiPhoto,Blank()); Set(varRawOcr,""); Set(varAiUsed,false)

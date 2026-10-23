@@ -1,0 +1,247 @@
+Screens:
+  RegisterScreen:
+    Properties:
+      Fill: =RGBA(246,249,248,1)
+      OnVisible: =Reset(ReferenceInput); Reset(SupplierInput); Reset(QuantityInput); Reset(ExpectedInput); Reset(NoteInput); Reset(SiteInput); Reset(UnitInput)
+    Children:
+    - RegisterScreenViewport:
+        Control: GroupContainer
+        Variant: AutoLayout
+        Properties:
+          Width: =Parent.Width
+          Height: =Parent.Height
+          LayoutDirection: =LayoutDirection.Vertical
+          LayoutOverflowY: =LayoutOverflow.Scroll
+          LayoutOverflowX: =LayoutOverflow.Hide
+          DropShadow: =DropShadow.None
+        Children:
+        - RegisterScreenBody:
+            Control: GroupContainer
+            Variant: ManualLayout
+            Properties:
+              Width: =Parent.Width
+              Height: =2000
+              LayoutMinHeight: =2000
+              LayoutMinWidth: =0
+              FillPortions: =0
+              DropShadow: =DropShadow.None
+            Children:
+            - NieuweleveringTitle:
+                Control: Label
+                Properties:
+                  Text: =If(IsBlank(varDelivery),"Nieuwe levering","Levering aanpassen")
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =44
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =48
+                  Color: =RGBA(20,45,51,1)
+                  FontWeight: =FontWeight.Semibold
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - NieuweleveringSubtitle:
+                Control: Label
+                Properties:
+                  Text: ="Vul de bongegevens in. Bonfoto en herkenning volgen na opslaan."
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =132
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =76
+                  Size: =22
+                  Color: =RGBA(90,111,120,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReferenceCaption:
+                Control: Label
+                Properties:
+                  Text: ="Bonnummer"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =220
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =44
+                  Size: =22
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ReferenceInput:
+                Control: Classic/TextInput
+                Properties:
+                  Default: =Coalesce(varDelivery.Bonnummer,"")
+                  HintText: ="Bijvoorbeeld LB-2026-1050"
+                  AccessibleLabel: ="Bijvoorbeeld LB-2026-1050"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =272
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =26
+                  BorderColor: =RGBA(200,215,216,1)
+            - SupplierCaption:
+                Control: Label
+                Properties:
+                  Text: ="Leverancier"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =372
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =44
+                  Size: =22
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - SupplierInput:
+                Control: Classic/TextInput
+                Properties:
+                  Default: =Coalesce(varDelivery.Leverancier,"")
+                  HintText: ="Naam leverancier"
+                  AccessibleLabel: ="Naam leverancier"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =424
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =26
+                  BorderColor: =RGBA(200,215,216,1)
+            - SiteCaption:
+                Control: Label
+                Properties:
+                  Text: ="Werf"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =524
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =44
+                  Size: =22
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - SiteInput:
+                Control: Classic/DropDown
+                Properties:
+                  Items: =Sort(ForAll(Werven,{Value:Naam,SiteId:Werf}),Value,SortOrder.Ascending)
+                  AccessibleLabel: ="Werf"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =576
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =26
+                  Default: =varDelivery.site.Naam
+            - QuantityCaption:
+                Control: Label
+                Properties:
+                  Text: ="Geleverd"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =680
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =44
+                  Size: =22
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - QuantityInput:
+                Control: Classic/TextInput
+                Properties:
+                  Default: =If(IsBlank(varDelivery),"",Text(varDelivery.Geleverd))
+                  HintText: ="Geleverde hoeveelheid"
+                  AccessibleLabel: ="Geleverde hoeveelheid"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =732
+                  Width: =(Min(700,Parent.Width-80)-32)/2
+                  Height: =84
+                  Size: =26
+                  BorderColor: =RGBA(200,215,216,1)
+                  Format: =TextFormat.Number
+            - ExpectedCaption:
+                Control: Label
+                Properties:
+                  Text: ="Besteld"
+                  X: =Max(40,(Parent.Width-700)/2)+(Min(700,Parent.Width-80)+32)/2
+                  Y: =680
+                  Width: =(Min(700,Parent.Width-80)-32)/2
+                  Height: =44
+                  Size: =22
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - ExpectedInput:
+                Control: Classic/TextInput
+                Properties:
+                  Default: =If(IsBlank(varDelivery),"24",Text(varDelivery.Besteld))
+                  HintText: ="Bestelde hoeveelheid"
+                  AccessibleLabel: ="Bestelde hoeveelheid"
+                  X: =Max(40,(Parent.Width-700)/2)+(Min(700,Parent.Width-80)+32)/2
+                  Y: =732
+                  Width: =(Min(700,Parent.Width-80)-32)/2
+                  Height: =84
+                  Size: =26
+                  BorderColor: =RGBA(200,215,216,1)
+                  Format: =TextFormat.Number
+            - UnitCaption:
+                Control: Label
+                Properties:
+                  Text: ="Eenheid"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =836
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =44
+                  Size: =22
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - UnitInput:
+                Control: Classic/DropDown
+                Properties:
+                  Items: =["ton","m³","kg","stuks"]
+                  AccessibleLabel: ="Eenheid"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =888
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =84
+                  Size: =26
+                  Default: =Coalesce(varDelivery.Eenheid,"ton")
+            - NoteCaption:
+                Control: Label
+                Properties:
+                  Text: ="Afwijking, schade of opmerking"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =992
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =44
+                  Size: =22
+                  Color: =RGBA(20,45,51,1)
+                  TabIndex: =0
+                  FocusedBorderThickness: =4
+            - NoteInput:
+                Control: Classic/TextInput
+                Properties:
+                  Default: =Coalesce(varDelivery.Afwijkingsreden,"")
+                  HintText: ="Verplicht bij meer dan 5% afwijking; beschrijf ook eventuele schade"
+                  AccessibleLabel: ="Verplicht bij meer dan 5% afwijking; beschrijf ook eventuele schade"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1044
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =176
+                  Size: =26
+                  BorderColor: =RGBA(200,215,216,1)
+                  Mode: =TextMode.MultiLine
+            - SaveDelivery:
+                Control: Classic/Button
+                Properties:
+                  Text: =If(varBusy,"Opslaan…","Concept opslaan")
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1288
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(8,127,112,1)
+                  Color: =Color.White
+                  Size: =28
+                  OnSelect: =If(varBusy,false,If(IsBlank(Trim(ReferenceInput.Text)) || IsBlank(Trim(SupplierInput.Text)) || IsBlank(SiteInput.Selected) || !IsNumeric(QuantityInput.Text) || !IsNumeric(ExpectedInput.Text) || Value(QuantityInput.Text)<=0 || Value(ExpectedInput.Text)<=0,Notify("Vul bon, leverancier, werf en positieve hoeveelheden in",NotificationType.Error),Abs(Value(QuantityInput.Text)-Value(ExpectedInput.Text))/Value(ExpectedInput.Text)>0.05 && IsBlank(Trim(NoteInput.Text)),Notify("Motiveer de afwijking",NotificationType.Error),Set(varBusy,true); IfError(Set(varDelivery,Patch(Leveringen,If(IsBlank(varDelivery),Defaults(Leveringen),varDelivery),{Naam:Upper(Trim(ReferenceInput.Text)),Bonnummer:Upper(Trim(ReferenceInput.Text)),Leverancier:Trim(SupplierInput.Text),site:LookUp(Werven,Werf=SiteInput.Selected.SiteId),Geleverd:Value(QuantityInput.Text),Besteld:Value(ExpectedInput.Text),Eenheid:UnitInput.Selected.Value,Afwijkingsreden:Trim(NoteInput.Text),Processtatus:"draft",'Menselijk bevestigd':false})); Navigate(ReviewScreen),Notify("Opslaan mislukt. Controleer of het bonnummer uniek is.",NotificationType.Error)); Set(varBusy,false)))
+                  DisplayMode: =If(varBusy,DisplayMode.Disabled,DisplayMode.Edit)
+            - CancelRegister:
+                Control: Classic/Button
+                Properties:
+                  Text: ="Terug naar overzicht"
+                  X: =Max(40,(Parent.Width-700)/2)
+                  Y: =1408
+                  Width: =Min(700,Parent.Width-80)
+                  Height: =92
+                  Fill: =RGBA(225,235,233,1)
+                  Color: =RGBA(20,45,51,1)
+                  Size: =28
+                  OnSelect: =Navigate(Overzicht)

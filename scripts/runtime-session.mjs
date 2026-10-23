@@ -2,7 +2,8 @@ import { readFile } from "node:fs/promises";
 import { nativeState } from "./native-state.mjs";
 import { serviceToken } from "./power-services.mjs";
 export async function withRuntimeClient(task) {
-  if (!process.env.AZURE_TENANT_ID) throw Error("AZURE_TENANT_ID is required for runtime authentication");
+  if (!process.env.AZURE_TENANT_ID)
+    throw Error("AZURE_TENANT_ID is required for runtime authentication");
   const runtime = JSON.parse(
       await readFile(await nativeState("native-runtime"), "utf8"),
     ),
@@ -69,7 +70,12 @@ export async function withRuntimeClient(task) {
             ": " +
             (await r.text()).slice(0, 700),
         );
-      return r.status === 204 ? {} : r.json();
+      if (r.status === 204) return {};
+      if (r.headers.get("content-type")?.includes("json")) return r.json();
+      return {
+        bytes: new Uint8Array(await r.arrayBuffer()),
+        contentType: r.headers.get("content-type"),
+      };
     }
     return await task(call, runtime);
   } finally {

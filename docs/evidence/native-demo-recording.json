@@ -1,0 +1,32 @@
+{
+  "scope": "Real published player; existing fictional records; no approval or submission performed by the tour",
+  "duration": 22.972,
+  "scenes": [
+    {
+      "seconds": 1.859,
+      "title": "Echte Power Apps-player met Dataverse-leveringen."
+    },
+    {
+      "seconds": 6.361,
+      "title": "18 van 24 ton geleverd: 25% afwijking."
+    },
+    {
+      "seconds": 9.211,
+      "title": "Opgeslagen Microsoft-OCR: velden vergelijken, afwijking laten controleren."
+    },
+    {
+      "seconds": 14.645,
+      "title": "Menselijke bevestiging is verplicht. Deze tour dient niets in."
+    },
+    {
+      "seconds": 19.369,
+      "title": "Eerder door de gebruiker goedgekeurde UAT: ERP-testontvangst bewaard."
+    }
+  ],
+  "video": "native-demo.webm",
+  "captions": "native-demo.nl.vtt",
+  "durationSeconds": 24.534,
+  "width": 390,
+  "height": 796,
+  "note": "Actual player recording cropped to the app. The tour views stored real Microsoft OCR and an earlier genuine human approval receipt; it does not execute an approval."
+}

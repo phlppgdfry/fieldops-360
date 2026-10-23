@@ -60,6 +60,23 @@ const tables = [
       str("fo_originalurl", "Origineel document URL", 1000),
       str("fo_extracted", "OCR resultaat JSON", 4000),
       str("fo_provider", "OCR provider", 100),
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.ImageAttributeMetadata",
+        SchemaName: "fo_photo",
+        DisplayName: label("Bonfoto"),
+        RequiredLevel: { Value: "None" },
+        CanStoreFullImage: true,
+        IsPrimaryImage: true,
+        MaxSizeInKB: 10240,
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.MemoAttributeMetadata",
+        SchemaName: "fo_ocrtext",
+        DisplayName: label("Herkenningstekst"),
+        RequiredLevel: { Value: "None" },
+        MaxLength: 100000,
+        Format: "Text",
+      },
     ],
   ],
   [

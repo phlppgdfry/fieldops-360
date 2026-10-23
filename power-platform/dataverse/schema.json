@@ -493,6 +493,41 @@
         "FormatName": {
           "Value": "Text"
         }
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.ImageAttributeMetadata",
+        "SchemaName": "fo_photo",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Bonfoto",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "CanStoreFullImage": true,
+        "IsPrimaryImage": true,
+        "MaxSizeInKB": 10240
+      },
+      {
+        "@odata.type": "Microsoft.Dynamics.CRM.MemoAttributeMetadata",
+        "SchemaName": "fo_ocrtext",
+        "DisplayName": {
+          "LocalizedLabels": [
+            {
+              "Label": "Herkenningstekst",
+              "LanguageCode": 1033
+            }
+          ]
+        },
+        "RequiredLevel": {
+          "Value": "None"
+        },
+        "MaxLength": 100000,
+        "Format": "Text"
       }
     ]
   },

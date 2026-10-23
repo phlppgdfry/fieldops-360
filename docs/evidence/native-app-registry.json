@@ -1,23 +1,23 @@
 {
   "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
-  "checkedAt": "2026-10-17T14:47:16.744Z",
+  "checkedAt": "2026-10-22T22:21:06.441Z",
   "apps": [
     {
-      "id": "9b00ff7e-1b3e-40be-9890-ae24ca13831d",
-      "name": "FieldOps 360",
-      "appVersion": "2026-10-17T14:28:07Z",
+      "id": "06f55c18-3b97-4781-a5c5-4058eb5fb458",
+      "name": "FieldOps 360 Mobile",
+      "appVersion": "2026-10-22T22:16:50Z",
       "databaseReferences": [
         "default.cds"
       ]
     }
   ],
   "registered": true,
-  "studioValidated": false,
-  "studioCheck": {
-    "checkedAt": "2026-10-17",
-    "result": "failed",
-    "code": "ErrOpeningDocument_UnknownError",
-    "playerMessage": "Deze app kan niet worden gepubliceerd",
-    "scope": "Observed directly in Chrome in FieldOps 360 DEV; registration and publish API success do not prove a working app."
-  }
+  "studioValidated": true,
+  "playerValidated": true,
+  "evidence": [
+    "native-studio-ui-tests.json",
+    "native-player-tests.json",
+    "native-ocr-ui-test.json",
+    "native-canvas-quality.json"
+  ]
 }

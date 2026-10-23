@@ -21,12 +21,14 @@
 | 14 | Zoekfilter met nul resultaten | Expliciete lege toestand | Ja |
 | 15 | Mobiel registreren | Geen afgesneden velden | Ja + screenshot |
 | 16 | PNG documentherkenning | Reference/supplier/quantity juist, review verplicht | Ja, macOS |
-| 17 | Tenantimport en connectorbinding | Canvas speelt, flows hebben runhistoriek | Geblokkeerd door rechten |
+| 17 | Tenantimport en connectorbinding | Canvas speelt, flows hebben runhistoriek | Uitgevoerd; native-player-tests.json en native-flow-runs.json |
 | 18 | 40 gelijktijdige gebruikers | p95 <2 sec CRUD | Nog niet uitgevoerd |
-| 19 | Dataverse-rechten en bypasspoging | Serverregel weigert ongeldige status | Na native deployment |
+| 19 | Dataverse-rechten en bypasspoging | Serverregel weigert ongeldige status | Uitgevoerd via beperkte runtime; native-runtime-tests.json en native-server-validation.json; meergebruikers-UAT apart |
 | 20 | Back-up herstellen | Dossiers en audit gelijk | Handmatige productiepoort |
 
 ## UAT-draaiboek (niet reeds ondertekend)
+De native mobiele player heeft acht functietests doorlopen. Native documentopslag heeft zeven controles doorlopen; Microsoft TextRecognizer heeft de fictieve bon daadwerkelijk verwerkt, inclusief opgeslagen veldvergelijking en verplichte menselijke bevestiging. De eigen gebruiker heeft één echte Microsoft-goedkeuring gegeven; de gesynchroniseerde ontvangst is opnieuw zichtbaar in de player. Dit vervangt niet de onderstaande bedrijfssessie met meerdere operationele gebruikers.
+
 Deelnemers: 2 chauffeurs, 1 werfleider, 1 administrateur, 1 IT-beheerder. Fictieve bonnen; geen persoonsgegevens. Leg browser, toestel, tijd, test-ID, verwacht/werkelijk resultaat en bewijs vast. Laat deelnemers zelfstandig werken.
 
 UAT01 chauffeur registreert 24 ton zonder afwijking (FR01). UAT02 18/24 ton met verplichte toelichting (FR03). UAT03 upload PNG en corrigeer eventueel bonnummer vóór dossieraanmaak; bevestig handmatig (FR08). UAT04 werfleider wijst af met reden, chauffeur dient opnieuw in (FR05). UAT05 goedkeuring synchroniseert eenmaal (FR06). UAT06 beheer simuleert ERP-storing, controleert melding en herstart na herstel (FR07). UAT07 verkeerde rol probeert dossier en bestand te openen (FR09). UAT08 sponsor wijzigt ROI-inputs (FR12).

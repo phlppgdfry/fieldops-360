@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-22T17:33:56.081634+00:00",
+  "appId": "06f55c18-3b97-4781-a5c5-4058eb5fb458",
+  "environment": "75afe50a-9cf3-ef33-9d38-148faf2e7e48",
+  "scope": "Actual Power Apps Studio preview through Playwright; published player results are recorded separately in native-player-tests.json.",
+  "reference": "NATIVE-UI-1792690301861",
+  "checks": [
+    {
+      "name": "Required fields rejected before save",
+      "ok": true
+    },
+    {
+      "name": "Deviation above 5% requires a reason",
+      "ok": true
+    },
+    {
+      "name": "Valid concept saved to Dataverse and review opened",
+      "ok": true
+    },
+    {
+      "name": "Submit disabled until human confirmation",
+      "ok": true
+    }
+  ]
+}

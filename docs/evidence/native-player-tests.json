@@ -1,0 +1,40 @@
+{
+  "checkedAt": "2026-10-22T20:08:58.277Z",
+  "appId": "06f55c18-3b97-4781-a5c5-4058eb5fb458",
+  "scope": "Actual published Microsoft Canvas player, 390×844 viewport; fictitious draft only",
+  "reference": "NATIVE-PLAYER-1792699728698",
+  "checks": [
+    {
+      "name": "Required fields blocked in published player",
+      "ok": true
+    },
+    {
+      "name": "Deviation above 5% requires a reason",
+      "ok": true
+    },
+    {
+      "name": "Draft saved to Dataverse with correct 25% deviation",
+      "ok": true
+    },
+    {
+      "name": "Human confirmation gates submission",
+      "ok": true
+    },
+    {
+      "name": "Draft edit loads original reference",
+      "ok": true
+    },
+    {
+      "name": "Existing draft updated without duplicate creation",
+      "ok": true
+    },
+    {
+      "name": "Explicit confirmation enables submission",
+      "ok": true
+    },
+    {
+      "name": "Confirmation alone does not submit or approve",
+      "ok": true
+    }
+  ]
+}

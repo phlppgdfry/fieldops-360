@@ -1,16 +1,21 @@
 # Uitgevoerde verificatie
 
-Datum: 16 oktober 2026. Lokale macOS-omgeving, Node 24.21, PAC 2.13.1. Geen eindgebruikersacceptatie of native runtimevalidatie geïmpliceerd.
+Bijgewerkt: 23 oktober 2026 (Europe/Brussels). Bewijs van uitvoering met fictieve gegevens; geen bedrijfsacceptatie of productiecertificering.
 
-- 13 unit/API-tests geslaagd: hoeveelheden, duplicaten, autorisatie, afwijkingen, onafhankelijke approval, versieconflict, herindiening, ERP-retries, idempotentie, menselijke documentbevestiging en uploadtoegang.
-- Chromium: desktop 1440×1000 en mobiel 390×844; betekenisvolle pagina, juiste titel, geen runtime-errors. Registratie → onafhankelijke goedkeuring → gesynchroniseerde ERP-status geslaagd. Zoekfunctie met resultaat/lege toestand en ROI-weergave gecontroleerd.
-- Werkelijke PNG via upload-API: Apple Vision herkent OCR-2026-001 / Demo Beton / 18 / ton. Provider, confidence en verplichte menselijke review vastgelegd in ocr-result.json.
-- BPMN: XML parse, sequenceFlow-referenties, start/eindevents, BPMN-DI shape/edge-dekking geslaagd; geen engine-execution of externe XSD-conformiteitsclaim.
-- Cloud-flow JSON: structurele controle geslaagd; geen connector- of tenantvalidatie.
-- Canvas: PAC pack en terug-unpack van FieldOps360.msapp geslaagd; drie eigen schermen. Checksum-waarschuwing is verwacht na bronwijziging. Geen Power Apps Studio App Checker uitgevoerd; er is geen gekopieerd Microsoft-checkerrapport als eigen bewijs opgenomen.
-- Tenant: WhoAmI succesvol met organisatieaccount. Publisher/solution aangemaakt. Tabelcreatie geeft 403 `prvCreateEntity`; gebruiker laat rechten toekennen.
-- Ontwerpconcept en werkelijke desktopweergave visueel geïnspecteerd; verschillen en keuzes in ../design-verification.md.
+| Uitvoering | Werkelijk resultaat | Bewijs |
+|---|---|---|
+| Unit/API en productiebuild | 14 tests geslaagd; Vite-build geslaagd | `npm run verify` |
+| Publieke browserdemo | Echte Tesseract-PNG-herkenning, menselijke controle, gesimuleerde ERP, herstel, desktop/mobiel en rondleiding | Pages Chromium-tests; afzonderlijk van Microsoft |
+| Native Canvas player | Acht mobiele functietests: validatie, 25% afwijking, concept opslaan/bewerken en menselijke bevestiging | native-player-tests.json |
+| Native foto/document | Zeven echte Dataverse-controles, inclusief >4000 tekens en volledige PNG-download | native-document-tests.json |
+| Native AI | Microsoft TextRecognizer werkelijk uitgevoerd in de gepubliceerde player; 18/24 ton herkend, velden/afwijking en ruwe tekst opgeslagen | native-ocr-ui-test.json |
+| Native authoring | Moderne bron compileert; Canvas- en toegankelijkheidscontrole zonder meldingen; na SourceCode-import opent Studio zonder formulefouten | native-canvas-quality.json; native app-registry |
+| Native integratie | Negen runtimechecks en vijf echte storing/herstelchecks; vier flows actief | native-runtime-tests.json, native-error-path-tests.json, native-flow-runs.json |
+| Menselijke goedkeuring | Gebruiker besliste zelf in Microsoft Approvals; dezelfde taak eindigde na herstel met één ERP-testontvangst | native-approval-uat.json |
+| Volledige Solution Checker | 0 critical/high, 5 medium mogelijke recursiemeldingen; statusfilters en runtimebewijs afzonderlijk vastgelegd | native-solution-checker.json |
+| Deelbare export | Actuele mobiele app in standalone en solution; oude appreferentie verwijderd; geneste scan zonder signed URLs/tokenpatronen; vier flows uit voor doelomgevingbinding | native-release-artifacts.json |
+| BPMN | XML, referenties en diagramdekking gecontroleerd | `npm run check:artifacts` |
 
-Bewijsbestanden zijn echte uitvoer van demo/tests. Screenshots tonen fictieve data; video toont de lokale webdemo, niet de native Microsoft-runtime.
+De [native video](native-demo.webm) toont de echte Microsoft-player: opgeslagen echte OCR beoordelen en een eerder werkelijk goedgekeurde UAT met ERP-ontvangst bekijken. De video voert geen beslissing uit. [Nederlandse ondertitels](native-demo.nl.vtt) en [opnamemetadata](native-demo-recording.json) horen bij die opname. De oorspronkelijke webdemo-video is een afzonderlijke uitvoering.
 
-Publieke Pages-uitvoering toegevoegd: twee aanvullende Chromium-proeven verifiëren echte Tesseract.js-OCR, verplichte menselijke bevestiging, originele foto uit IndexedDB, onafhankelijke demonstratierol, gesimuleerde ERP-storing/drie pogingen/herstel, ontvangst en behoud na reload. Tijdens die geteste route zijn geen HTTP-verzoeken naar andere origins waargenomen. Dit is afzonderlijk bewijs van de browserdemo, niet van native Microsoft-componenten.
+Open productiepoorten: meergebruikers-UAT, operationele roltoewijzingen/werfteams, belastingtest, herstelproef, passende licenties/capaciteit en formele acceptatie. De eerdere `prvCreateEntity`-blokkade en het oude onbruikbare Canvas-bestand zijn opgelost; ze worden niet meer als huidige blokkades beschreven.

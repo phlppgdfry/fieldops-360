@@ -1,0 +1,6 @@
+EditorState:
+  ScreensOrder:
+  - Overzicht
+  - RegisterScreen
+  - ReviewScreen
+  - DocumentScreen

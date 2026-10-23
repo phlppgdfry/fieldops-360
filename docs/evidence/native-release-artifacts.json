@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-23T13:09:07.061056+00:00",
+  "scope": "Static verification of current standalone and embedded Canvas sources; nested secret-pattern scan, not runtime certification",
+  "packageSha256": "9562cf6f053804b68790c713ef6e926e21b9c2084e28acfe5f474734ebc2c11c",
+  "appSha256": "70f0fdd2bc3832b2b0349448bb43c80e796233e81a06fe16a79a19ac0c5b2534",
+  "textFilesScanned": 49,
+  "signedUrlsOrTokenPatternsFound": 0,
+  "currentMobileAppInSolution": true,
+  "enlargedLayoutInBothArtifacts": true
+}

@@ -14,7 +14,7 @@ vtt='WEBVTT\n\n'
 for i,scene in enumerate(scenes):
  end=scenes[i+1]['seconds'] if i+1<len(scenes) else duration
  vtt+=f'{stamp(scene["seconds"])} --> {stamp(end)}\n{scene["title"]}\n\n'
-Path('docs/evidence/native-demo.nl.vtt').write_text(vtt)
+Path('docs/evidence/native-demo.nl.vtt').write_text(vtt.rstrip()+'\n')
 report.update({'video':'native-demo.webm','captions':'native-demo.nl.vtt','durationSeconds':duration,'width':390,'height':796,'note':'Actual player recording cropped to the app. The tour views stored real Microsoft OCR and an earlier genuine human approval receipt; it does not execute an approval.'})
 Path('docs/evidence/native-demo-recording.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print({'durationSeconds':duration,'captions':len(scenes)})
